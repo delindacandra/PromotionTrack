@@ -16,6 +16,7 @@ class BarangKeluarSeeder extends Seeder
         $data = [
             [
                 'id_barangKeluar' => 1,
+                'id_fungsi' => 4,
                 'tanggal_barangKeluar' => '2024/09/14',
                 'keperluan' => 'SA NTB',
                 'keterangan' => '',
@@ -23,6 +24,7 @@ class BarangKeluarSeeder extends Seeder
             ],
             [
                 'id_barangKeluar' => 2,
+                'id_fungsi' => 4,
                 'tanggal_barangKeluar' => '2024/09/14',
                 'keperluan' => 'SA NTB',
                 'keterangan' => '',
@@ -30,6 +32,7 @@ class BarangKeluarSeeder extends Seeder
             ],
             [
                 'id_barangKeluar' => 3,
+                'id_fungsi' => 4,
                 'tanggal_barangKeluar' => '2024/09/14',
                 'keperluan' => 'SA NTB',
                 'keterangan' => '',
@@ -37,6 +40,7 @@ class BarangKeluarSeeder extends Seeder
             ],
             [
                 'id_barangKeluar' => 4,
+                'id_fungsi' => 4,
                 'tanggal_barangKeluar' => '2024/09/14',
                 'keperluan' => 'SA NTB',
                 'keterangan' => '',
