@@ -19,7 +19,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{url('/barang')}}" class="nav-link">
                             <i class="nav-icon bi bi-info-circle"></i>
                             <p>Informasi Barang</p>
                         </a>
