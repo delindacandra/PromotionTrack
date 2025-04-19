@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangModel;
+use App\Models\StokModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class BarangController extends Controller
@@ -43,5 +45,44 @@ class BarangController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function create()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Barang Baru',
+            'list' => ['Data Barang', 'Form Barang Baru']
+        ];
+
+        return view('barang.create', ['breadcrumb' => $breadcrumb]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nama_barang' => 'required|string|unique:data_barang,nama_barang',
+            'vendor' => 'nullable|string',
+            'gambar' => 'nullable|mimes:png,jpg,jpeg',
+            'jumlah' => 'required|integer',
+        ]);
+
+        $path = null;
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $fileName = date('Y-m-d') . '-' . $image->getClientOriginalName();
+            $path = 'barang/' . $fileName;
+            Storage::disk('public')->put($path, file_get_contents($image));
+        }
+        $barang = BarangModel::create([
+            'nama_barang' => $request->nama_barang,
+            'vendor' => $request->vendor,
+            'gambar' => $path,
+        ]);
+
+        StokModel::create([
+            'id_barang' => $barang->id_barang,
+            'jumlah' => $request->jumlah,
+        ]);
+        return redirect('/barang')->with('success', 'Data berhasil ditambahkan');
     }
 }
