@@ -30,6 +30,9 @@ class BarangController extends Controller
             ->addColumn('stok', function ($barang) {
                 return $barang->stok ? $barang->stok->jumlah : 'N/A';
             })
+            ->addColumn('gambar', function ($barang) {
+                return basename($barang->gambar);
+            })
             ->addColumn('aksi', function ($barang) {
                 $btn  = '<a href="' . url('/barang/' . $barang->id_barang . '/detail') . '" class="btn btn-info btn-sm me-1">Detail</a>';
                 $btn .= '<a href="' . url('/barang/' . $barang->id_barang . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';

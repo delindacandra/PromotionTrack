@@ -66,6 +66,10 @@
                     searchable: false
                 }, {
                     data: "gambar",
+                    render: function(data, type, row) {
+                        return '<img src="{{ asset('storage/barang/') }}/' + row.gambar +
+                            '" alt="Gambar Barang" width="100">';
+                    },
                     className: "",
                     orderable: false,
                     searchable: false
