@@ -97,4 +97,68 @@ class BarangController extends Controller
 
         return view('barang.show', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
     }
+
+    public function edit(string $id)
+    {
+        $barang = BarangModel::find($id);
+
+        $breadcrumb = (object)[
+            'title' => 'Edit Barang',
+            'list' => ['Data Barang', 'Form Edit Barang']
+        ];
+
+        return view('barang.edit', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
+    }
+
+    public function update(Request $request, string $id_barang)
+    {
+        $request->validate([
+            'nama_barang' => 'required|string|unique:data_barang,nama_barang,' . $id_barang . ',id_barang',
+            'vendor' => 'nullable|string',
+            'jumlah' => 'required|integer',
+            'gambar' => 'nullable|mimes:png,jpg,jpeg'
+        ]);
+
+        $barang = BarangModel::find($id_barang);
+        $path = null;
+        if ($request->hasFile('gambar')) {
+            $image = $request->file('gambar');
+            $fileName = date('Y-m-d') . '-' . $image->getClientOriginalName();
+            $path = 'barang/' . $fileName;
+            Storage::disk('public')->put($path, file_get_contents($image));
+
+            if ($barang->gambar) {
+                Storage::disk('public')->delete($barang->gambar);
+            }
+            $barang->gambar = $path;
+        }
+
+        $barang->update([
+            'nama_barang' => $request->nama_barang,
+            'vendor' => $request->vendor,
+            'gambar' => $barang->gambar ?? null,
+        ]);
+
+        StokModel::updateOrCreate(
+            ['id_barang' => $id_barang],
+            ['jumlah' => $request->jumlah]
+        );
+
+        return redirect('/barang')->with('success', 'Data user berhasil diubah');
+    }
+
+    public function destroy(string $id)
+    {
+        $check = BarangModel::find($id);
+        if (!$check) {
+            return redirect('/barang')->with('error', 'Data barang tidak ditemukan');
+        }
+        try {
+            StokModel::where('id_barang', $id)->delete();
+            BarangModel::destroy($id);
+            return redirect('/barang')->with('success', 'Data barang berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/barang')->with('error', 'Data barang gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
+    }
 }

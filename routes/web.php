@@ -24,4 +24,7 @@ Route::group(['prefix' => 'barang'], function () {
     Route::get('/create', [BarangController::class, 'create']);
     Route::post('/', [BarangController::class, 'store']);
     Route::get('/{id}', [BarangController::class, 'show']);
+    Route::get('/{id}/edit', [BarangController::class, 'edit']);
+    Route::put('/{id_barang}', [BarangController::class, 'update']);
+    Route::delete('{id}', [BarangController::class, 'destroy']);
 });
