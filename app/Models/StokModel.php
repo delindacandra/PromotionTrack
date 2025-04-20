@@ -12,6 +12,7 @@ class StokModel extends Model
     protected $table = 'stok';
     protected $primaryKey = 'id_stok';
     protected $fillable = ['id_barang', 'jumlah'];
+    public $timestamps = true;
 
     public function barang(): BelongsTo{
         return $this->belongsTo(BarangModel::class, 'id_barang', 'id_barang');

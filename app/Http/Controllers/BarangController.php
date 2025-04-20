@@ -36,7 +36,7 @@ class BarangController extends Controller
                 return basename($barang->gambar);
             })
             ->addColumn('aksi', function ($barang) {
-                $btn  = '<a href="' . url('/barang/' . $barang->id_barang . '/detail') . '" class="btn btn-info btn-sm me-1">Detail</a>';
+                $btn  = '<a href="' . url('/barang/' . $barang->id_barang) . '" class="btn btn-info btn-sm me-1">Detail</a>';
                 $btn .= '<a href="' . url('/barang/' . $barang->id_barang . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang/' . $barang->id_barang) . '">'
                     . csrf_field() . method_field('DELETE') .
@@ -84,5 +84,17 @@ class BarangController extends Controller
             'jumlah' => $request->jumlah,
         ]);
         return redirect('/barang')->with('success', 'Data berhasil ditambahkan');
+    }
+
+    public function show(string $id)
+    {
+        $barang = BarangModel::with('stok')->find($id);
+
+        $breadcrumb = (object) [
+            'title' => 'Detail Barang',
+            'list' => ['Data Barang', 'Info Detail']
+        ];
+
+        return view('barang.show', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
     }
 }
