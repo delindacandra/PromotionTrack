@@ -25,7 +25,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{url('/barang_masuk')}}" class="nav-link">
                             <i class="nav-icon bi bi-plus-square"></i>
                             <p>Tambah Stok</p>
                         </a>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangMasukController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,9 @@ Route::group(['prefix' => 'barang'], function () {
     Route::get('/{id}/edit', [BarangController::class, 'edit']);
     Route::put('/{id_barang}', [BarangController::class, 'update']);
     Route::delete('{id}', [BarangController::class, 'destroy']);
+});
+
+Route::group(['prefix' => 'barang_masuk'], function () {
+    Route::get('/', [BarangMasukController::class, 'index']);
+    Route::post('/list', [BarangMasukController::class, 'list']);
 });
