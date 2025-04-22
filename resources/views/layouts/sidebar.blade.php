@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{url('/barang/create')}}" class="nav-link">
                             <span class="nav-icon" style="font-weight: bold; color: blue;">NEW</span>
                             <p>Barang Baru</p>
                         </a>
