@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangMasukModel;
+use App\Models\BarangModel;
 use App\Models\DetailBarangMasukModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -44,5 +46,46 @@ class BarangMasukController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function create()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Form Barang Masuk',
+            'list' => ['Barang Masuk', 'Form Barang Masuk']
+        ];
+        $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
+        return view('barang_masuk.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'tanggal_barangMasuk' => 'required|date',
+            'keterangan' => 'required|string',
+            'items' => 'required|string',
+        ]);
+
+        $items = json_decode($request->items, true);
+        $barangMasuk = BarangMasukModel::create([
+            'tanggal_barangMasuk' => $request->tanggal_barangMasuk,
+            'keterangan' => $request->keterangan,
+        ]);
+        foreach ($items as $item) {
+            DetailBarangMasukModel::create([
+                'id_barangMasuk' => $barangMasuk->id_barangMasuk,
+                'id_barang' => $item['id_barang'],
+                'jumlah' => $item['jumlah'],
+            ]);
+
+            // Update stok barang
+            $barang = BarangModel::find($item['id_barang']);
+            if ($barang && $barang->stok) {
+                $barang->stok->jumlah = (int)$barang->stok->jumlah + (int)$item['jumlah'];
+                $barang->stok->save();
+            }
+        }
+
+        return redirect('/barang_masuk')->with('success', 'Data berhasil disimpan.');
     }
 }

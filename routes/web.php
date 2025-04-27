@@ -33,4 +33,6 @@ Route::group(['prefix' => 'barang'], function () {
 Route::group(['prefix' => 'barang_masuk'], function () {
     Route::get('/', [BarangMasukController::class, 'index']);
     Route::post('/list', [BarangMasukController::class, 'list']);
+    Route::get('/create', [BarangMasukController::class, 'create']);
+    Route::post('/', [BarangMasukController::class, 'store']);
 });
