@@ -35,4 +35,7 @@ Route::group(['prefix' => 'barang_masuk'], function () {
     Route::post('/list', [BarangMasukController::class, 'list']);
     Route::get('/create', [BarangMasukController::class, 'create']);
     Route::post('/', [BarangMasukController::class, 'store']);
+    Route::get('/{id}/edit', [BarangMasukController::class, 'edit']);
+    Route::put('/{id}', [BarangMasukController::class, 'update']);
+    Route::delete('/{id}', [BarangMasukController::class, 'destroy']);
 });
