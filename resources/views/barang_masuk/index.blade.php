@@ -68,7 +68,7 @@
                     searchable: false,
                     render: function(data) {
                         if (!data) return '';
-                        let parts = data.split('-'); 
+                        let parts = data.split('-');
                         return `${parts[2].substring(0,2)}-${parts[1]}-${parts[0]}`;
                     }
                 }, {
@@ -96,8 +96,48 @@
                     className: "",
                     orderable: false,
                     searchable: false
-                }]
+                }],
+
+                drawCallback: function(settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    var rowspanMap = {};
+                    var nomor = 1;
+
+                    api.column(1,{
+                        page: 'current'
+                    }).data().each(function(data, i) {
+                        var id = api.row(i).data().id_barangMasuk;
+
+                        if (id === last) {
+                            $(rows).eq(i).find('td:eq(0)').css('display', 'none'); // No
+                            $(rows).eq(i).find('td:eq(1)').css('display', 'none'); // Tanggal
+                            $(rows).eq(i).find('td:eq(5)').css('display', 'none'); // Keterangan
+                            $(rows).eq(i).find('td:eq(6)').css('display', 'none'); // Aksi
+                        } else {
+                            var rowspanCount = api.rows(function(idx, d) {
+                                return d.id_barangMasuk === id;
+                            }).count();
+
+                            $(rows).eq(i).find('td:eq(0)').html(nomor); // No
+                            $(rows).eq(i).find('td:eq(0)').attr('rowspan', rowspanCount);
+                            $(rows).eq(i).find('td:eq(1)').attr('rowspan',
+                            rowspanCount); // Tanggal
+                            $(rows).eq(i).find('td:eq(5)').attr('rowspan',
+                            rowspanCount); // Keterangan
+                            $(rows).eq(i).find('td:eq(6)').attr('rowspan',
+                            rowspanCount); // Aksi
+
+                            nomor++; 
+                        }
+                        last = id;
+                    });
+                }
             });
+
             $('#filter_date').on('click', function() {
                 dataBarang.ajax.reload();
             });
