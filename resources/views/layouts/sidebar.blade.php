@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/barang_keluar')}}" class="nav-link">
                             <span class="nav-icon" style="font-weight: bold; color: red;">OUT</span>
                             <p>Barang Keluar</p>
                         </a>
