@@ -58,7 +58,7 @@
                 <div class="col-md-6">
                     <div class="card p-3">
                         <div class="card-header py-2">
-                            <h5 class="text-center fw-bold mb-0">Form Barang Masuk</h5>
+                            <h5 class="text-center fw-bold mb-0">Form Barang Keluar</h5>
                         </div>
                         <div class="card-body">
                             <form id="form_barangKeluar" method="POST" action="{{ url('barang_keluar') }}">
