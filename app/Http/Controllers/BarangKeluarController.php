@@ -91,4 +91,87 @@ class BarangKeluarController extends Controller
         }
         return redirect('/barang_keluar')->with('success', 'Data berhasil ditambahkan');
     }
+
+    public function edit(string $id)
+    {
+        $breadcrumb = (object)[
+            'title' => 'Edit Barang Keluar',
+            'list' => ['Barang Keluar', ' Form Edit Barang Keluar']
+        ];
+        $barangKeluar = BarangKeluarModel::with('detailBarangKeluar.barang')->findOrFail($id);
+        $barang = $barangKeluar->detailBarangKeluar;
+        $fungsi = FungsiModel::all();
+        return view('/barang_keluar.edit', ['breadcrumb' => $breadcrumb, 'barangKeluar' => $barangKeluar, 'barang' => $barang, 'fungsi' => $fungsi]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'items' => 'required|string',
+            'id_fungsi' => 'required|integer',
+            'keperluan' => 'required|string',
+            'keterangan' => 'required|string',
+            'tanggal_barangKeluar' => 'required|date'
+        ]);
+        $items = json_decode($request->items, true);
+
+        $barangKeluar = BarangKeluarModel::findOrFail($id);
+        $barangKeluar->update([
+            'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
+            'keterangan' => $request->keterangan,
+            'keperluan' => $request->keperluan,
+            'id_fungsi' => $request->id_fungsi,
+        ]);
+
+        $detailBarangKeluar = DetailBarangKeluarModel::where('id_barangKeluar', $id)->get();
+
+        foreach ($detailBarangKeluar as $oldItem) {
+            $barang = BarangModel::find($oldItem->id_barang);
+            if ($barang && $barang->stok) {
+                $barang->stok->jumlah += $oldItem->jumlah;
+                $barang->stok->save();
+            }
+        }
+
+        DetailBarangKeluarModel::where('id_barangKeluar', $id)->delete();
+
+        foreach ($items as $item) {
+            DetailBarangKeluarModel::create([
+                'id_barangKeluar' => $barangKeluar->id_barangKeluar,
+                'id_barang' => $item['id_barang'],
+                'jumlah' => $item['jumlah'],
+            ]);
+            $barang = BarangModel::find($item['id_barang']);
+            if ($barang && $barang->stok) {
+                $barang->stok->jumlah -= $item['jumlah'];
+                $barang->stok->save();
+            }
+        }
+        return redirect('/barang_keluar')->with('success', 'Data berhasil diupdate');
+    }
+
+    public function destroy(string $id)
+    {
+        $check = BarangKeluarModel::find($id);
+        if (!$check) {
+            return redirect('/barang_keluar')->with('error', 'Data tidak ditemukan.');
+        }
+        try {
+            // Stok akan ditambah data pembaruan
+            $items = DetailBarangKeluarModel::where('id_barangKeluar', $id)->get();
+
+            foreach ($items as $iten) {
+                $barang = BarangModel::find($iten->id_barang);
+                if ($barang && $barang->stok) {
+                    $barang->stok->jumlah += $iten->jumlah;
+                    $barang->stok->save();
+                }
+            }
+            DetailBarangKeluarModel::where('id_barangKeluar', $id)->delete();
+            BarangKeluarModel::destroy($id);
+            return redirect('/barang_keluar')->with('success', 'Data berhasil dihapus.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/barang_keluar')->with('error', 'Data gagal dihapus. Pastikan data tidak digunakan di tempat lain.');
+        }
+    }
 }

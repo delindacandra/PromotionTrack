@@ -46,4 +46,7 @@ Route::group(['prefix' => 'barang_keluar'], function(){
     Route::post('/list', [BarangKeluarController::class, 'list']);
     Route::get('/create',[BarangKeluarController::class, 'create']);
     Route::post('/', [BarangKeluarController::class, 'store']);
+    Route::get('/{id}/edit', [BarangKeluarController::class, 'edit']);
+    Route::put('/{id}', [BarangKeluarController::class, 'update']);
+    Route::delete('/{id}', [BarangKeluarController::class, 'destroy']);
 });
