@@ -10,8 +10,8 @@ class BarangKeluarModel extends Model
 {
     use HasFactory;
     protected $table = 'barang_keluar';
-    protected $primaryKey = 'id_barangeluar';
-    protected $fillable = ['tanggal_barangKeluar', 'keterangan', 'keperluan', 'id_permintaan'];
+    protected $primaryKey = 'id_barangKeluar';
+    protected $fillable = ['tanggal_barangKeluar', 'keterangan', 'keperluan', 'id_permintaan', 'id_fungsi'];
 
 
     public function permintaan():BelongsTo {
@@ -21,5 +21,9 @@ class BarangKeluarModel extends Model
     public function detailBarangakeluar()
     {
         return $this->hasMany(DetailBarangKeluarModel::class, 'id_barangKeluar', 'id_barangKeluar');
+    }
+
+    public function fungsi(){
+        return $this->belongsTo(FungsiModel::class, 'id_fungsi', 'id_fungsi');
     }
 }

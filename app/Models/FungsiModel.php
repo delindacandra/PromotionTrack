@@ -11,4 +11,9 @@ class FungsiModel extends Model
     protected $table = 'fungsi';
     protected $primaryKey = 'id_fungsi';
     protected $fillable = ['nama_fungsi'];
+
+    public function barang_keluar()
+    {
+        return $this->hasMany(BarangKeluarModel::class, 'id_fungsi', 'id_fungsi');
+    }
 }
