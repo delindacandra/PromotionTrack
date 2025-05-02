@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangKeluarModel;
+use App\Models\BarangModel;
 use App\Models\DetailBarangKeluarModel;
 use App\Models\FungsiModel;
 use Illuminate\Http\Request;
@@ -44,5 +46,49 @@ class BarangKeluarController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function create()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Form Barang Keluar',
+            'list' => ['Barang Keluar', 'Form Barang Keluar']
+        ];
+        $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
+        $fungsi = FungsiModel::all();
+        return view('barang_keluar.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang, 'fungsi' => $fungsi]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'items' => 'required|string',
+            'id_fungsi' => 'required|integer',
+            'keperluan' => 'required|string',
+            'keterangan' => 'required|string',
+            'tanggal_barangKeluar' => 'required|date'
+        ]);
+
+        $items = json_decode($request->items, true);
+        $barangKeluar = BarangKeluarModel::create([
+            'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
+            'keterangan' => $request->keterangan,
+            'keperluan' => $request->keperluan,
+            'id_fungsi' => $request->id_fungsi,
+        ]);
+
+        foreach ($items as $item) {
+            DetailBarangKeluarModel::create([
+                'id_barangKeluar' => $barangKeluar->id_barangKeluar,
+                'id_barang' => $item['id_barang'],
+                'jumlah' => $item['jumlah'],
+            ]);
+            $barang = BarangModel::find($item['id_barang']);
+            if ($barang && $barang->stok) {
+                $barang->stok->jumlah = (int)$barang->stok->jumlah - (int)$item['jumlah'];
+                $barang->stok->save();
+            }
+        }
+        return redirect('/barang_keluar')->with('success', 'Data berhasil ditambahkan');
     }
 }
