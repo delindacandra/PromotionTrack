@@ -38,7 +38,8 @@ class BarangKeluarController extends Controller
         return DataTables::of($barangKeluar->get())
             ->addIndexColumn()
             ->addColumn('aksi', function ($barangKeluar) {
-                $btn = '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                $btn = '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/detail') . '" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
@@ -90,6 +91,18 @@ class BarangKeluarController extends Controller
             }
         }
         return redirect('/barang_keluar')->with('success', 'Data berhasil ditambahkan');
+    }
+
+    public function show(string $id)
+    {
+        $breadcrumb = (object)[
+            'title' => 'Informasi Barang Keluar',
+            'list' => ['Barang Keluar', 'Detail Barang Keluar']
+        ];
+
+        $barangKeluar = BarangKeluarModel::with('fungsi')->find($id);
+        $detailBarangKeluar = DetailBarangKeluarModel::with('barang')->where('id_barangKeluar', $id)->get();
+        return view('barang_keluar.show', ['breadcrumb' => $breadcrumb, 'barangKeluar' => $barangKeluar, 'detailBarangKeluar' => $detailBarangKeluar]);
     }
 
     public function edit(string $id)

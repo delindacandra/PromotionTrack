@@ -26,4 +26,8 @@ class BarangKeluarModel extends Model
     public function fungsi(){
         return $this->belongsTo(FungsiModel::class, 'id_fungsi', 'id_fungsi');
     }
+
+    protected $casts = [
+        'tanggal_barangKeluar' => 'datetime',
+    ];
 }
