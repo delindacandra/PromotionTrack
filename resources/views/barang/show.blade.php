@@ -3,7 +3,7 @@
 @section('content')
     <div class="card card-primary card-outline mb-4">
         <div class="card-header">
-            <div class="card-title">Input data barang baru</div>
+            <div class="card-title">Data Barang</div>
         </div>
         <div class="card-body">
             @empty($barang)
@@ -27,7 +27,14 @@
                     </tr>
                     <tr>
                         <th>Gambar barang</th>
-                        <td>{{ $barang->gambar }}</td>
+                        <td>
+                            @if ($barang->gambar)
+                                <img src="{{ asset('storage/' . $barang->gambar) }}" alt="Gambar barang"
+                                    class="img-fluid" width="150px">
+                            @else
+                                <span class="text-danger">Tidak ada gambar</span>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>Perubahan stok terakhir</th>
