@@ -19,7 +19,7 @@
                     </tr>
                     <tr>
                         <th>Vendor</th>
-                        <td>{{ $barang->vendor }}</td>
+                        <td>{{ $barang->nama_vendor }}</td>
                     </tr>
                     <tr>
                         <th>Stok barang</th>

@@ -60,7 +60,7 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: "vendor",
+                    data: "vendor.nama_vendor",
                     className: "",
                     orderable: false,
                     searchable: false

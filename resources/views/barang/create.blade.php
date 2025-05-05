@@ -12,9 +12,14 @@
                     <label for="nama_barang" class="form-label">Nama Barang</label>
                     <input type="text" class="form-control" id="nama_barang" name="nama_barang" />
                 </div>
-                <div class="mb-3">
+                <div class="col-9">
                     <label for="vendor" class="form-label">Vendor</label>
-                    <input type="text" class="form-control" id="vendor" name="vendor" />
+                    <select class="form-control" id="vendor" name="vendor">
+                        <option value="">- Pilih Vendor -</option>
+                        @foreach ($vendor as $i)
+                            <option value="{{ $i->id_vendor }}">{{ $i->nama_vendor }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="gambar" class="form-label">Gambar</label>

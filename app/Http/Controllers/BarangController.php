@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangModel;
 use App\Models\StokModel;
+use App\Models\VendorModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
@@ -21,7 +22,7 @@ class BarangController extends Controller
 
     public function list(Request $request)
     {
-        $barangs = BarangModel::with('stok')->orderBy('nama_barang', 'asc');
+        $barangs = BarangModel::with('stok', 'vendor')->orderBy('nama_barang', 'asc');
 
         if ($request->id_barang) {
             $barangs->where('id_barang', $request->id_barang);
@@ -49,12 +50,14 @@ class BarangController extends Controller
 
     public function create()
     {
+        $vendor = VendorModel::all();
+
         $breadcrumb = (object)[
             'title' => 'Barang Baru',
             'list' => ['Data Barang', 'Form Barang Baru']
         ];
 
-        return view('barang.create', ['breadcrumb' => $breadcrumb]);
+        return view('barang.create', ['breadcrumb' => $breadcrumb, 'vendor' => $vendor]);
     }
 
     public function store(Request $request)
@@ -88,7 +91,7 @@ class BarangController extends Controller
 
     public function show(string $id)
     {
-        $barang = BarangModel::with('stok')->find($id);
+        $barang = BarangModel::with('stok', 'vendor')->find($id);
 
         $breadcrumb = (object) [
             'title' => 'Detail Barang',
@@ -101,13 +104,14 @@ class BarangController extends Controller
     public function edit(string $id)
     {
         $barang = BarangModel::find($id);
+        $vendor = VendorModel::all();
 
         $breadcrumb = (object)[
             'title' => 'Edit Barang',
             'list' => ['Data Barang', 'Form Edit Barang']
         ];
 
-        return view('barang.edit', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
+        return view('barang.edit', ['breadcrumb' => $breadcrumb, 'barang' => $barang, 'vendor' => $vendor]);
     }
 
     public function update(Request $request, string $id_barang)

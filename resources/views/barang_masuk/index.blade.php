@@ -77,7 +77,7 @@
                     orderable: false,
                     searchable: true
                 }, {
-                    data: "barang.vendor",
+                    data: "barang.vendor.nama_vendor",
                     className: "",
                     orderable: false,
                     searchable: false

@@ -22,7 +22,7 @@ class BarangMasukController extends Controller
 
     public function list(Request $request)
     {
-        $barangMasuks = DetailBarangMasukModel::with('barang_masuk', 'barang')->orderByDesc('id_barangMasuk')->get();
+        $barangMasuks = DetailBarangMasukModel::with('barang_masuk', 'barang.vendor')->orderByDesc('id_barangMasuk')->get();
 
         if ($request->has('start_date') && $request->start_date) {
             $barangMasuks->whereHas('barang_masuk', function ($query) use ($request) {
