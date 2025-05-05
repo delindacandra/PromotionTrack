@@ -65,9 +65,18 @@ class BarangController extends Controller
         $request->validate([
             'nama_barang' => 'required|string|unique:data_barang,nama_barang',
             'vendor' => 'nullable|string',
+            'vendor_baru' => 'nullable|string',
             'gambar' => 'nullable|mimes:png,jpg,jpeg',
             'jumlah' => 'required|integer',
         ]);
+
+        $idVendor = $request->vendor;
+        if ($idVendor === '__new') {
+            $vendorBaru = VendorModel::create([
+                'nama_vendor' => $request->vendor_baru
+            ]);
+            $idVendor = $vendorBaru->id_vendor;
+        }
 
         $path = null;
         if ($request->hasFile('gambar')) {
@@ -78,7 +87,7 @@ class BarangController extends Controller
         }
         $barang = BarangModel::create([
             'nama_barang' => $request->nama_barang,
-            'vendor' => $request->vendor,
+            'id_vendor' => $idVendor,
             'gambar' => $path,
         ]);
 
@@ -119,11 +128,21 @@ class BarangController extends Controller
         $request->validate([
             'nama_barang' => 'required|string|unique:data_barang,nama_barang,' . $id_barang . ',id_barang',
             'vendor' => 'nullable|string',
+            'vendor_baru' => 'nullable|string',
             'jumlah' => 'required|integer',
             'gambar' => 'nullable|mimes:png,jpg,jpeg'
         ]);
 
         $barang = BarangModel::find($id_barang);
+
+        $idVendor = $request->vendor;
+        if ($idVendor === '__new') {
+            $vendorBaru = VendorModel::create([
+                'nama_vendor' => $request->vendor_baru
+            ]);
+            $idVendor = $vendorBaru->id_vendor;
+        }
+
         $path = null;
         if ($request->hasFile('gambar')) {
             $image = $request->file('gambar');
@@ -139,7 +158,7 @@ class BarangController extends Controller
 
         $barang->update([
             'nama_barang' => $request->nama_barang,
-            'vendor' => $request->vendor,
+            'id_vendor' => $idVendor,
             'gambar' => $barang->gambar ?? null,
         ]);
 

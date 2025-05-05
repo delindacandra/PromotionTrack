@@ -19,11 +19,11 @@
                     </tr>
                     <tr>
                         <th>Vendor</th>
-                        <td>{{ $barang->nama_vendor }}</td>
+                        <td>{{ $barang->vendor ? $barang->vendor->nama_vendor : '-' }}</td>
                     </tr>
                     <tr>
                         <th>Stok barang</th>
-                        <td>{{ $barang->stok->jumlah }}</td>
+                        <td>{{ $barang->stok ? $barang->stok->jumlah : '0'}}</td>
                     </tr>
                     <tr>
                         <th>Gambar barang</th>
