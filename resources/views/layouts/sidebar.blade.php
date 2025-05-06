@@ -3,7 +3,7 @@
         <!--begin::Sidebar Menu-->
         <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{url ('/dashboard')}}" class="nav-link">
                     <i class="nav-icon bi bi-speedometer"></i>
                     <p>Dashboard</p>
                 </a>
@@ -19,25 +19,25 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{url('/barang')}}" class="nav-link">
+                        <a href="{{ url('/barang') }}" class="nav-link">
                             <i class="nav-icon bi bi-info-circle"></i>
                             <p>Informasi Barang</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/barang_masuk')}}" class="nav-link">
+                        <a href="{{ url('/barang_masuk') }}" class="nav-link">
                             <i class="nav-icon bi bi-plus-square"></i>
                             <p>Tambah Stok</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/barang/create')}}" class="nav-link">
+                        <a href="{{ url('/barang/create') }}" class="nav-link">
                             <span class="nav-icon" style="font-weight: bold; color: blue;">NEW</span>
                             <p>Barang Baru</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/barang_keluar')}}" class="nav-link">
+                        <a href="{{ url('/barang_keluar') }}" class="nav-link">
                             <span class="nav-icon" style="font-weight: bold; color: red;">OUT</span>
                             <p>Barang Keluar</p>
                         </a>
@@ -64,6 +64,15 @@
                     <i class="nav-icon bi bi-person"></i>
                     <p>Profile</p>
                 </a>
+            </li>
+            <li class="nav-item">
+                <form action="{{ url('/logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="nav-link btn btn-link text-start w-100" style="color: red;">
+                        <i class="nav-icon bi bi-box-arrow-right"></i>
+                        <p>Logout</p>
+                    </button>
+                </form>
             </li>
         </ul>
         <!--end::Sidebar Menu-->

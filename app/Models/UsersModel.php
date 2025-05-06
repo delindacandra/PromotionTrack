@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UsersModel extends Model
+class UsersModel extends Authenticatable
 {
     use HasFactory;
     protected $table = 'users';
     protected $primaryKey = 'id_users';
-    protected $fillable = ['id_level', 'id_sa', 'id_fungsi', 'email', 'password'];
+    protected $fillable = ['id_level', 'id_sa', 'id_fungsi', 'email', 'password'];    
 
     public function level(): BelongsTo
     {
