@@ -5,6 +5,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KelolaPenggunaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -41,5 +42,9 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::get('/{id}/edit', [BarangKeluarController::class, 'edit']);
         Route::put('/{id}', [BarangKeluarController::class, 'update']);
         Route::delete('/{id}', [BarangKeluarController::class, 'destroy']);
+    });
+    Route::group(['prefix' => 'pengguna'], function () {
+        Route::get('/', [KelolaPenggunaController::class, 'index']);
+        Route::post('/list', [KelolaPenggunaController::class, 'list']);
     });
 });
