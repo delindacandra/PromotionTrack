@@ -46,5 +46,7 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
     Route::group(['prefix' => 'pengguna'], function () {
         Route::get('/', [KelolaPenggunaController::class, 'index']);
         Route::post('/list', [KelolaPenggunaController::class, 'list']);
+        Route::get('/create', [KelolaPenggunaController::class, 'create']);
+        Route::post('/', [KelolaPenggunaController::class, 'store']);
     });
 });

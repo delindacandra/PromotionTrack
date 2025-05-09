@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FungsiModel;
+use App\Models\LevelModel;
+use App\Models\SAModel;
 use App\Models\UsersModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class KelolaPenggunaController extends Controller
@@ -14,7 +18,7 @@ class KelolaPenggunaController extends Controller
             'title' => 'Kelola Pengguna',
             'list' => ['Kelola Pengguna', 'List']
         ];
-        return view(('pengguna.index'), ['breadcrumb' => $breadcrumb]);
+        return view('pengguna.index', ['breadcrumb' => $breadcrumb]);
     }
 
     public function list(Request $request)
@@ -35,5 +39,38 @@ class KelolaPenggunaController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function create()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Kelola Pengguna',
+            'list' => ['Kelola Pengguna', 'Tambah Pengguna']
+        ];
+        $level = LevelModel::all();
+        $fungsi = FungsiModel::orderBy('nama_fungsi', 'asc')->get();
+        $sa = SAModel::all();
+        return view('pengguna.create', ['breadcrumb' => $breadcrumb, 'level' => $level, 'fungsi' => $fungsi, 'sa' => $sa]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate(([
+            'level' => 'required',
+            'sa' => 'required',
+            'fungsi' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+        ]));
+
+        UsersModel::create([
+            'id_level' => $request->level,
+            'id_sa' => $request->sa,
+            'id_fungsi' => $request->fungsi,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect('/pengguna')->with('success', 'Data pengguna berhasil ditambahkan');
     }
 }
