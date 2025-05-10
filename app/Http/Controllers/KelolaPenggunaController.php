@@ -30,7 +30,7 @@ class KelolaPenggunaController extends Controller
         return DataTables::of($users)
             ->addIndexColumn()
             ->addColumn('aksi', function ($user) {
-                $btn = '<a href="' . url('/pengguna/' . $user->id_users) . '" class="btn btn-info btn-sm me-1">Detail</a>';
+                $btn = '<a href="' . url('/pengguna/' . $user->id_users . '/detail') . '" class="btn btn-info btn-sm me-1">Detail</a>';
                 $btn .= '<a href="' . url('/pengguna/' . $user->id_users . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/pengguna/' . $user->id_users) . '">'
                     . csrf_field() . method_field('DELETE') .
@@ -72,5 +72,68 @@ class KelolaPenggunaController extends Controller
         ]);
 
         return redirect('/pengguna')->with('success', 'Data pengguna berhasil ditambahkan');
+    }
+
+    public function show(string $id)
+    {
+        $breadcrumb = (object)[
+            'title' => 'Kelola Pengguna',
+            'list' => ['Kelola Pengguna', 'Detail Pengguna']
+        ];
+        $users = UsersModel::with('level', 'fungsi', 'sales_area')->findOrFail($id);
+        return view('pengguna.show', ['breadcrumb' => $breadcrumb, 'users' => $users]);
+    }
+
+    public function edit(string $id)
+    {
+        $breadcrumb = (object)[
+            'title' => 'Kelola Pengguna',
+            'list' => ['Kelola Pengguna', 'Edit Pengguna']
+        ];
+        $users = UsersModel::with('level', 'fungsi', 'sales_area')->findOrFail($id);
+        $level = LevelModel::all();
+        $fungsi = FungsiModel::orderBy('nama_fungsi', 'asc')->get();
+        $sa = SAModel::all();
+        return view('pengguna.edit', ['breadcrumb' => $breadcrumb, 'users' => $users, 'level' => $level, 'fungsi' => $fungsi, 'sa' => $sa]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate(([
+            'level' => 'required',
+            'sa' => 'required',
+            'fungsi' => 'required',
+            'email' => 'required|email|unique:users,email,' . $id . ',id_users',
+            'password' => 'nullable|min:6',
+        ]));
+
+        $users = UsersModel::findOrFail($id);
+        $users->id_level = $request->level;
+        $users->id_sa = $request->sa;
+        $users->id_fungsi = $request->fungsi;
+        $users->email = $request->email;
+
+        if ($request->password) {
+            $users->password = Hash::make($request->password);
+        }
+
+        $users->save();
+
+        return redirect('/pengguna')->with('success', 'Data pengguna berhasil diubah');
+    }
+
+    public function destroy(string $id)
+    {
+        $user = UsersModel::find($id);
+        if (!$user) {
+            return redirect('/pengguna')->with('error', 'Data pengguna tidak ditemukan');
+        }
+
+        try {
+            $user->delete();
+            return redirect('/pengguna')->with('success', 'Data pengguna berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('/pengguna')->with('error', 'Data pengguna gagal dihapus karena masih digunakan di tabel lain');
+        }
     }
 }

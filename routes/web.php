@@ -48,5 +48,9 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::post('/list', [KelolaPenggunaController::class, 'list']);
         Route::get('/create', [KelolaPenggunaController::class, 'create']);
         Route::post('/', [KelolaPenggunaController::class, 'store']);
+        Route::get('/{id}/detail', [KelolaPenggunaController::class, 'show']);
+        Route::get('/{id}/edit', [KelolaPenggunaController::class, 'edit']);
+        Route::put('/{id}', [KelolaPenggunaController::class, 'update']);
+        Route::delete('/{id}', [KelolaPenggunaController::class, 'destroy']);
     });
 });
