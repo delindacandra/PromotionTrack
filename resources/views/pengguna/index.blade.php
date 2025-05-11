@@ -5,7 +5,14 @@
         <div class="container-fluid">
             <div class="card p-3">
                 <div class="row align-items-center">
-                    <div class="col"></div>
+                    <div class="col-2 me-auto">
+                        <select class="form-select form-select-sm" id="filter_sa" name="filter_sa">
+                            <option value="">-- Sales Area --</option>
+                            @foreach ($sales_area as $sa)
+                                <option value="{{ $sa->id_sa }}">{{ $sa->nama_sa }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col-auto d-flex gap-2">
                         <a class="btn btn-sm btn-primary" href="{{ url('pengguna/create') }}">Tambah</a>
                     </div>
@@ -40,7 +47,7 @@
                     "dataType": "json",
                     "type": "POST",
                     "data": function(d) {
-                        d.id_users = $('#id_users').val();
+                        d.id_sa = $('#filter_sa').val();
                         d._token = "{{ csrf_token() }}";
                     }
                 },
@@ -53,22 +60,22 @@
                     data: "level.nama_level",
                     className: "",
                     orderable: false,
-                    searchable: true
+                    searchable: false
                 }, {
                     data: "sales_area.nama_sa",
                     className: "",
-                    orderable: false,
+                    orderable: true,
                     searchable: false
                 }, {
                     data: "fungsi.nama_fungsi",
                     className: "",
                     orderable: false,
-                    searchable: false
-                },{
+                    searchable: true
+                }, {
                     data: "email",
                     className: "",
                     orderable: false,
-                    searchable: false
+                    searchable: true
                 }, {
                     data: "aksi",
                     className: "",
@@ -76,7 +83,7 @@
                     searchable: false
                 }]
             });
-            $('#id_users').on('change', function() {
+            $('#filter_sa').on('change', function() {
                 dataUsers.ajax.reload();
             });
         });

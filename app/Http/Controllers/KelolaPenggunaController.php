@@ -18,14 +18,15 @@ class KelolaPenggunaController extends Controller
             'title' => 'Kelola Pengguna',
             'list' => [' Daftar Pengguna']
         ];
-        return view('pengguna.index', ['breadcrumb' => $breadcrumb]);
+        $sales_area = SAModel::all();
+        return view('pengguna.index', ['breadcrumb' => $breadcrumb, 'sales_area' => $sales_area]);
     }
 
     public function list(Request $request)
     {
         $users = UsersModel::with('level', 'fungsi', 'sales_area')->orderBy('id_level', 'asc');
-        if ($request->id_users) {
-            $users->where('id_users', $request->id_users);
+        if ($request->id_sa) {
+            $users->where('id_sa', $request->id_sa);
         }
         return DataTables::of($users)
             ->addIndexColumn()
