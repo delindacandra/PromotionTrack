@@ -27,6 +27,22 @@
             </div>
         </div>
     </div>
+
+    <div id="imageModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Gambar Barang</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" src="" class="img-fluid" alt="Gambar Barang">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -67,8 +83,9 @@
                 }, {
                     data: "gambar",
                     render: function(data, type, row) {
-                        return '<img src="{{ asset('storage/barang/') }}/' + row.gambar +
-                            '" alt="Gambar Barang" width="100">';
+                        return '<img class="zoomable" src="{{ asset('storage/barang/') }}/' +
+                            row.gambar +
+                            '" alt="Gambar Barang" height="50">';
                     },
                     className: "",
                     orderable: false,
@@ -83,6 +100,36 @@
             $('#id_barang').on('change', function() {
                 dataBarang.ajax.reload();
             });
+            $(document).on('click', '.zoomable', function() {
+                if (window.matchMedia('(hover: none)').matches) {
+                    $(this).toggleClass('clicked');
+                }
+            });
         });
     </script>
+@endpush
+
+@push('css')
+    <style>
+        .zoomable {
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+            z-index: 1000;
+            position: relative;
+        }
+
+        /* Efek hover untuk desktop */
+        @media (hover: hover) {
+            .zoomable:hover {
+                transform: scale(5);
+            }
+        }
+
+        /* Efek klik untuk mobile */
+        @media (hover: none) {
+            .zoomable.clicked {
+                transform: scale(5);
+            }
+        }
+    </style>
 @endpush
