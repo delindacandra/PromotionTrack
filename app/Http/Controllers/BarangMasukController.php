@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use App\Models\DetailBarangMasukModel;
-use App\Models\StokModel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -15,7 +14,7 @@ class BarangMasukController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Barang Masuk',
-            'list' => ['Barang Masuk', 'List']
+            'list' => ['Daftar Barang Masuk']
         ];
         return view('barang_masuk.index', ['breadcrumb' => $breadcrumb]);
     }
@@ -52,8 +51,8 @@ class BarangMasukController extends Controller
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Form Barang Masuk',
-            'list' => ['Barang Masuk', 'Form Barang Masuk']
+            'title' => 'Tambah Barang Masuk',
+            'list' => ['Barang Masuk', 'Tambah']
         ];
         $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
         return view('barang_masuk.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
@@ -93,7 +92,7 @@ class BarangMasukController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Edit Barang Masuk',
-            'list' => ['Barang Masuk', 'Edit Barang Masuk']
+            'list' => ['Barang Masuk', 'Edit']
         ];
         $barangMasuk = BarangMasukModel::with('detailBarangMasuk.barang')->findOrFail($id);
         $barang = $barangMasuk->detailBarangMasuk;

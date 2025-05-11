@@ -15,7 +15,7 @@ class BarangKeluarController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Barang Keluar',
-            'list' => ['Barang Keluar', 'List']
+            'list' => ['Daftar Barang Keluar']
         ];
         return view('barang_keluar.index', ['breadcrumb' => $breadcrumb]);
     }
@@ -52,8 +52,8 @@ class BarangKeluarController extends Controller
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Form Barang Keluar',
-            'list' => ['Barang Keluar', 'Form Barang Keluar']
+            'title' => 'Tambah Barang Keluar',
+            'list' => ['Barang Keluar', 'Tambah']
         ];
         $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
         $fungsi = FungsiModel::all();
@@ -97,7 +97,7 @@ class BarangKeluarController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Informasi Barang Keluar',
-            'list' => ['Barang Keluar', 'Detail Barang Keluar']
+            'list' => ['Barang Keluar', 'Info']
         ];
 
         $barangKeluar = BarangKeluarModel::with('fungsi')->find($id);
@@ -109,7 +109,7 @@ class BarangKeluarController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Edit Barang Keluar',
-            'list' => ['Barang Keluar', ' Form Edit Barang Keluar']
+            'list' => ['Barang Keluar', 'Edit']
         ];
         $barangKeluar = BarangKeluarModel::with('detailBarangKeluar.barang')->findOrFail($id);
         $barang = $barangKeluar->detailBarangKeluar;

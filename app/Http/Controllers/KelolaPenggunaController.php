@@ -16,7 +16,7 @@ class KelolaPenggunaController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Kelola Pengguna',
-            'list' => ['Kelola Pengguna', 'List']
+            'list' => [' Daftar Pengguna']
         ];
         return view('pengguna.index', ['breadcrumb' => $breadcrumb]);
     }
@@ -44,8 +44,8 @@ class KelolaPenggunaController extends Controller
     public function create()
     {
         $breadcrumb = (object)[
-            'title' => 'Kelola Pengguna',
-            'list' => ['Kelola Pengguna', 'Tambah Pengguna']
+            'title' => 'Tambah Data Pengguna',
+            'list' => ['Kelola Pengguna', 'Tambah']
         ];
         $level = LevelModel::all();
         $fungsi = FungsiModel::orderBy('nama_fungsi', 'asc')->get();
@@ -77,8 +77,8 @@ class KelolaPenggunaController extends Controller
     public function show(string $id)
     {
         $breadcrumb = (object)[
-            'title' => 'Kelola Pengguna',
-            'list' => ['Kelola Pengguna', 'Detail Pengguna']
+            'title' => 'Informasi Data Pengguna',
+            'list' => ['Kelola Pengguna', 'Info']
         ];
         $users = UsersModel::with('level', 'fungsi', 'sales_area')->findOrFail($id);
         return view('pengguna.show', ['breadcrumb' => $breadcrumb, 'users' => $users]);
@@ -87,8 +87,8 @@ class KelolaPenggunaController extends Controller
     public function edit(string $id)
     {
         $breadcrumb = (object)[
-            'title' => 'Kelola Pengguna',
-            'list' => ['Kelola Pengguna', 'Edit Pengguna']
+            'title' => 'Data Pengguna',
+            'list' => ['Kelola Pengguna', 'Edit']
         ];
         $users = UsersModel::with('level', 'fungsi', 'sales_area')->findOrFail($id);
         $level = LevelModel::all();

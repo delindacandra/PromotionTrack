@@ -3,7 +3,7 @@
 @section('content')
     <div class="card card-primary card-outline mb-4">
         <div class="card-header">
-            <div class="card-title"> Detail Barang Keluar</div>
+            <div class="card-title">Detail Barang Keluar</div>
         </div>
         <div class="card-body">
             @empty($barangKeluar)

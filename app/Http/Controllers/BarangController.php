@@ -15,7 +15,7 @@ class BarangController extends Controller
     {
         $breadcrumb = (object)[
             'title' => 'Data Barang',
-            'list' => ['Data Barang', 'List']
+            'list' => ['Daftar Barang']
         ];
         return view('barang.index', ['breadcrumb' => $breadcrumb]);
     }
@@ -53,8 +53,8 @@ class BarangController extends Controller
         $vendor = VendorModel::all();
 
         $breadcrumb = (object)[
-            'title' => 'Barang Baru',
-            'list' => ['Data Barang', 'Form Barang Baru']
+            'title' => 'Tambah Barang Baru',
+            'list' => ['Data Barang', 'Tambah']
         ];
 
         return view('barang.create', ['breadcrumb' => $breadcrumb, 'vendor' => $vendor]);
@@ -103,8 +103,8 @@ class BarangController extends Controller
         $barang = BarangModel::with('stok', 'vendor')->find($id);
 
         $breadcrumb = (object) [
-            'title' => 'Detail Barang',
-            'list' => ['Data Barang', 'Info Detail']
+            'title' => 'Informasi Data Barang',
+            'list' => ['Data Barang', 'Info']
         ];
 
         return view('barang.show', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
@@ -117,7 +117,7 @@ class BarangController extends Controller
 
         $breadcrumb = (object)[
             'title' => 'Edit Barang',
-            'list' => ['Data Barang', 'Form Edit Barang']
+            'list' => ['Data Barang', 'Edit']
         ];
 
         return view('barang.edit', ['breadcrumb' => $breadcrumb, 'barang' => $barang, 'vendor' => $vendor]);
