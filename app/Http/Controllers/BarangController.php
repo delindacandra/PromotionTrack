@@ -177,6 +177,9 @@ class BarangController extends Controller
             return redirect('/barang')->with('error', 'Data barang tidak ditemukan');
         }
         try {
+            if ($check->gambar) {
+                Storage::disk('public')->delete($check->gambar);
+            }
             StokModel::where('id_barang', $id)->delete();
             BarangModel::destroy($id);
             return redirect('/barang')->with('success', 'Data barang berhasil dihapus');
