@@ -31,11 +31,18 @@ class KelolaPenggunaController extends Controller
         return DataTables::of($users)
             ->addIndexColumn()
             ->addColumn('aksi', function ($user) {
-                $btn = '<a href="' . url('/pengguna/' . $user->id_users . '/detail') . '" class="btn btn-info btn-sm me-1">Detail</a>';
-                $btn .= '<a href="' . url('/pengguna/' . $user->id_users . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/pengguna/' . $user->id_users) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '';
+                if (userHasAccess('pengguna', 'show')) {
+                    $btn = '<a href="' . url('/pengguna/' . $user->id_users . '/detail') . '" class="btn btn-info btn-sm me-1">Detail</a>';
+                }
+                if (userHasAccess('pengguna', 'edit')) {
+                    $btn .= '<a href="' . url('/pengguna/' . $user->id_users . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                }
+                if (userHasAccess('pengguna', 'destroy')) {
+                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/pengguna/' . $user->id_users) . '">'
+                        . csrf_field() . method_field('DELETE') .
+                        '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                }
                 return $btn;
             })
             ->rawColumns(['aksi'])

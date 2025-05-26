@@ -19,65 +19,75 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('/barang') }}" class="nav-link">
-                                <i class="nav-icon bi bi-info-circle"></i>
-                                <p>Informasi Barang</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/barang_masuk') }}" class="nav-link">
-                                <i class="nav-icon bi bi-plus-square"></i>
-                                <p>Tambah Stok</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/barang/create') }}" class="nav-link">
-                                <span class="nav-icon" style="font-weight: bold; color: blue;">NEW</span>
-                                <p>Barang Baru</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('/barang_keluar') }}" class="nav-link">
-                                <span class="nav-icon" style="font-weight: bold; color: red;">OUT</span>
-                                <p>Barang Keluar</p>
-                            </a>
-                        </li>
+                        @userHasAccess('barang', 'index')
+                            <li class="nav-item">
+                                <a href="{{ url('/barang') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-info-circle"></i>
+                                    <p>Informasi Barang</p>
+                                </a>
+                            </li>
+                        @endUserHasAccess
+                        @userHasAccess('barang_masuk', 'create')
+                            <li class="nav-item">
+                                <a href="{{ url('/barang_masuk') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-plus-square"></i>
+                                    <p>Tambah Stok</p>
+                                </a>
+                            </li>
+                        @endUserHasAccess
+                        @userHasAccess('barang', 'create')
+                            <li class="nav-item">
+                                <a href="{{ url('/barang/create') }}" class="nav-link">
+                                    <span class="nav-icon" style="font-weight: bold; color: blue;">NEW</span>
+                                    <p>Barang Baru</p>
+                                </a>
+                            </li>
+                        @endUserHasAccess
+                        @userHasAccess('barang_keluar', 'create')
+                            <li class="nav-item">
+                                <a href="{{ url('/barang_keluar') }}" class="nav-link">
+                                    <span class="nav-icon" style="font-weight: bold; color: red;">OUT</span>
+                                    <p>Barang Keluar</p>
+                                </a>
+                            </li>
+                        @endUserHasAccess
                     </ul>
                 </li>
                 <li class="nav-header">PERMINTAAN</li>
-                @if (auth()->user()->level->id_level === 2)
+                @userHasAccess('permintaan', 'create')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-plus-circle"></i>
                             <p>Permintaan Baru</p>
                         </a>
                     </li>
-                @endif
-                @if (auth()->user()->level->id_level === 1)
+                @endUserHasAccess
+                @userHasAccess('permintaan', 'proses')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-arrow-repeat"></i>
                             <p>Proses Permintaan</p>
                         </a>
                     </li>
-                @endif
-                @if (auth()->user()->level->id_level === 2)
+                @endUserHasAccess
+                @userHasAccess('permintaan', 'arsip')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-files"></i>
                             <p>Kelola Dokumen</p>
                         </a>
                     </li>
-                @endif
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-clock"></i>
-                        <p>Riwayat Permintaan</p>
-                    </a>
-                </li>
+                @endUserHasAccess
+                @userHasAccess('permintaan', 'riwayat')
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon bi bi-clock"></i>
+                            <p>Riwayat Permintaan</p>
+                        </a>
+                    </li>
+                @endUserHasAccess
 
-                @if (auth()->user()->level->id_level === 2)
+                @userHasAccess('pengguna', 'index')
                     <li class="nav-header">USER MANAGEMENT</li>
                     <li class="nav-item">
                         <a href="{{ url('/pengguna') }}" class="nav-link">
@@ -85,7 +95,7 @@
                             <p>Kelola Pengguna</p>
                         </a>
                     </li>
-                @endif
+                @endUserHasAccess
             @endauth
             <li class="nav-item">
                 <form action="{{ url('/logout') }}" method="POST">

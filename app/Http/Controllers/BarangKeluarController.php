@@ -38,11 +38,21 @@ class BarangKeluarController extends Controller
         return DataTables::of($barangKeluar->get())
             ->addIndexColumn()
             ->addColumn('aksi', function ($barangKeluar) {
-                $btn = '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/detail') . '" class="btn btn-info btn-sm">Detail</a> ';
-                $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '';
+                if (userHasAccess('barang_keluar', 'cetak')) {
+                    $btn = '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/cetak') . '" class="btn btn-success btn-sm">Cetak</a> ';
+                }
+                if (userHasAccess('barang_keluar', 'show')) {
+                    $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/detail') . '" class="btn btn-info btn-sm">Detail</a> ';
+                }
+                if (userHasAccess('barang_keluar', 'edit')) {
+                    $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                }
+                if (userHasAccess('barang_keluar', 'destroy')) {
+                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar) . '">'
+                        . csrf_field() . method_field('DELETE') .
+                        '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                }
                 return $btn;
             })
             ->rawColumns(['aksi'])

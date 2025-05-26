@@ -37,11 +37,18 @@ class BarangController extends Controller
                 return basename($barang->gambar);
             })
             ->addColumn('aksi', function ($barang) {
-                $btn  = '<a href="' . url('/barang/' . $barang->id_barang) . '" class="btn btn-info btn-sm me-1">Detail</a>';
-                $btn .= '<a href="' . url('/barang/' . $barang->id_barang . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang/' . $barang->id_barang) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                $btn = '';
+                if (userHasAccess('barang', 'show')) {
+                    $btn  .= '<a href="' . url('/barang/' . $barang->id_barang) . '" class="btn btn-info btn-sm me-1">Detail</a>';
+                }
+                if (userHasAccess('barang', 'edit')) {
+                    $btn .= '<a href="' . url('/barang/' . $barang->id_barang . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                }
+                if (userHasAccess('barang', 'destroy')) {
+                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang/' . $barang->id_barang) . '">'
+                        . csrf_field() . method_field('DELETE') .
+                        '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                }
                 return $btn;
             })
             ->rawColumns(['aksi'])

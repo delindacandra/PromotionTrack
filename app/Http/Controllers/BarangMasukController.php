@@ -38,10 +38,15 @@ class BarangMasukController extends Controller
         return DataTables::of($barangMasuks)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barangMasuk) {
+                $btn = '';
+                if (userHasAccess('barang_masuk', 'edit')){
                 $btn = '<a href="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                }
+                if (userHasAccess('barang_masuk', 'destroy')){
                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk) . '">'
                     . csrf_field() . method_field('DELETE') .
                     '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                }
                 return $btn;
             })
             ->rawColumns(['aksi'])
