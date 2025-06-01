@@ -14,7 +14,7 @@ class AuthController extends Controller
         if ($users) {
             return redirect('/dashboard');
         }
-        return view('auth.login', );
+        return view('auth.login',);
     }
 
     public function login_process(Request $request)
@@ -22,16 +22,18 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $request->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'name' => 'required',
         ]);
         $user = UsersModel::where('email', $credentials['email'])->first();
 
         if ($user && password_verify($credentials['password'], $user->password)) {
             Auth::login($user);
+            session(['name' => $request->name]);
             session()->put('user.email', $user->email);
             session()->put('user.level', $user->level->nama_level);
             session()->put('user.sa', $user->nama_sa);
-
+            
             return redirect('/dashboard')->with('success', 'Login Berhasil');
         }
         return redirect('/login')->with('failed', 'Email atau Password Salah');

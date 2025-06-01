@@ -55,6 +55,10 @@
                 <form action="{{ url('/login_process') }}" method="POST">
                     @csrf
                     <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Name" name="name" />
+                        <div class="input-group-text"><span class="bi bi-person"></span></div>
+                    </div>
+                    <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" name="email" />
                         <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                     </div>
