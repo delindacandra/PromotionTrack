@@ -6,6 +6,7 @@ use App\Models\BarangModel;
 use App\Models\StokModel;
 use App\Models\VendorModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -92,15 +93,23 @@ class BarangController extends Controller
             $path = 'barang/' . $fileName;
             Storage::disk('public')->put($path, file_get_contents($image));
         }
+
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $createdby = "{$name} | {$info_email}";
+
         $barang = BarangModel::create([
             'nama_barang' => $request->nama_barang,
             'id_vendor' => $idVendor,
             'gambar' => $path,
+            'createdby' => $createdby,
         ]);
 
         StokModel::create([
             'id_barang' => $barang->id_barang,
             'jumlah' => $request->jumlah,
+            'createdby' => $createdby,
         ]);
         return redirect('/barang')->with('success', 'Data berhasil ditambahkan');
     }
@@ -162,16 +171,22 @@ class BarangController extends Controller
             }
             $barang->gambar = $path;
         }
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $editedby = "{$name} | {$info_email}";
 
         $barang->update([
             'nama_barang' => $request->nama_barang,
             'id_vendor' => $idVendor,
             'gambar' => $barang->gambar ?? null,
+            'editedby' => $editedby,
         ]);
 
         StokModel::updateOrCreate(
             ['id_barang' => $id_barang],
-            ['jumlah' => $request->jumlah]
+            ['jumlah' => $request->jumlah],
+            ['editedby' => $editedby]
         );
 
         return redirect('/barang')->with('success', 'Data user berhasil diubah');

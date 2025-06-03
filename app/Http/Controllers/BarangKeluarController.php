@@ -7,6 +7,7 @@ use App\Models\BarangModel;
 use App\Models\DetailBarangKeluarModel;
 use App\Models\FungsiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class BarangKeluarController extends Controller
@@ -81,11 +82,18 @@ class BarangKeluarController extends Controller
         ]);
 
         $items = json_decode($request->items, true);
+
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $createdby = "{$name}|{$info_email}";
+
         $barangKeluar = BarangKeluarModel::create([
             'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
             'keterangan' => $request->keterangan,
             'keperluan' => $request->keperluan,
             'id_fungsi' => $request->id_fungsi,
+            'createdby' => $createdby,
         ]);
 
         foreach ($items as $item) {
@@ -93,6 +101,7 @@ class BarangKeluarController extends Controller
                 'id_barangKeluar' => $barangKeluar->id_barangKeluar,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
+                'createdby' => $createdby,
             ]);
             $barang = BarangModel::find($item['id_barang']);
             if ($barang && $barang->stok) {
@@ -138,12 +147,18 @@ class BarangKeluarController extends Controller
         ]);
         $items = json_decode($request->items, true);
 
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $editedby = "{$name}|{$info_email}";
+
         $barangKeluar = BarangKeluarModel::findOrFail($id);
         $barangKeluar->update([
             'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
             'keterangan' => $request->keterangan,
             'keperluan' => $request->keperluan,
             'id_fungsi' => $request->id_fungsi,
+            'editedby' => $editedby,
         ]);
 
         $detailBarangKeluar = DetailBarangKeluarModel::where('id_barangKeluar', $id)->get();
@@ -163,6 +178,7 @@ class BarangKeluarController extends Controller
                 'id_barangKeluar' => $barangKeluar->id_barangKeluar,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
+                'editedby' => $editedby,
             ]);
             $barang = BarangModel::find($item['id_barang']);
             if ($barang && $barang->stok) {

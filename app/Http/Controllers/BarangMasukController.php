@@ -6,6 +6,7 @@ use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use App\Models\DetailBarangMasukModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class BarangMasukController extends Controller
@@ -39,13 +40,13 @@ class BarangMasukController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($barangMasuk) {
                 $btn = '';
-                if (userHasAccess('barang_masuk', 'edit')){
-                $btn = '<a href="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                if (userHasAccess('barang_masuk', 'edit')) {
+                    $btn = '<a href="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 }
-                if (userHasAccess('barang_masuk', 'destroy')){
-                $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk) . '">'
-                    . csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
+                if (userHasAccess('barang_masuk', 'destroy')) {
+                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk) . '">'
+                        . csrf_field() . method_field('DELETE') .
+                        '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 }
                 return $btn;
             })
@@ -72,15 +73,23 @@ class BarangMasukController extends Controller
         ]);
 
         $items = json_decode($request->items, true);
+
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $createdby = "{$name}|{$info_email}";
+
         $barangMasuk = BarangMasukModel::create([
             'tanggal_barangMasuk' => $request->tanggal_barangMasuk,
             'keterangan' => $request->keterangan,
+            'createdby' => $createdby,
         ]);
         foreach ($items as $item) {
             DetailBarangMasukModel::create([
                 'id_barangMasuk' => $barangMasuk->id_barangMasuk,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
+                'createdby' => $createdby,
             ]);
 
             $barang = BarangModel::find($item['id_barang']);
@@ -114,10 +123,16 @@ class BarangMasukController extends Controller
 
         $items = json_decode($request->items, true);
 
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $editedby = "{$name}|{$info_email}";
+
         $barangMasuk = BarangMasukModel::findOrFail($id);
         $barangMasuk->update([
             'tanggal_barangMasuk' => $request->tanggal_barangMasuk,
             'keterangan' => $request->keterangan,
+            'editedby' => $editedby,
         ]);
 
         $detailBarangMasuk = DetailBarangMasukModel::where('id_barangMasuk', $id)->get();
@@ -137,6 +152,7 @@ class BarangMasukController extends Controller
                 'id_barangMasuk' => $barangMasuk->id_barangMasuk,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
+                'editedby' => $editedby,
             ]);
 
             $barang = BarangModel::find($item['id_barang']);

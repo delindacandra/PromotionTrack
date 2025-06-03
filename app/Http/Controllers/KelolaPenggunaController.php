@@ -7,6 +7,7 @@ use App\Models\LevelModel;
 use App\Models\SAModel;
 use App\Models\UsersModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -71,12 +72,18 @@ class KelolaPenggunaController extends Controller
             'password' => 'required|min:6',
         ]));
 
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $createdby = "{$name}|{$info_email}";
+
         UsersModel::create([
             'id_level' => $request->level,
             'id_sa' => $request->sa,
             'id_fungsi' => $request->fungsi,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'createdby' => $createdby,
         ]);
 
         return redirect('/pengguna')->with('success', 'Data pengguna berhasil ditambahkan');
@@ -115,11 +122,17 @@ class KelolaPenggunaController extends Controller
             'password' => 'nullable|min:6',
         ]));
 
+        $name = session('name');
+        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        $info_email = explode('@', $email)[0];
+        $editedby = "{$name}|{$info_email}";
+
         $users = UsersModel::findOrFail($id);
         $users->id_level = $request->level;
         $users->id_sa = $request->sa;
         $users->id_fungsi = $request->fungsi;
         $users->email = $request->email;
+        $users->editedby = $editedby;
 
         if ($request->password) {
             $users->password = Hash::make($request->password);
