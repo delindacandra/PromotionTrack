@@ -10,7 +10,7 @@ class FungsiModel extends Model
     use HasFactory;
     protected $table = 'fungsi';
     protected $primaryKey = 'id_fungsi';
-    protected $fillable = ['nama_fungsi'];
+    protected $fillable = ['nama_fungsi',  'createdby', 'editedby', 'deletedby'];
 
     public function barang_keluar()
     {

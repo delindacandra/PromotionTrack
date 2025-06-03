@@ -10,5 +10,5 @@ class SkalaKegiatanModel extends Model
     use HasFactory;
     protected $table = 'skala_kegiatan';
     protected $primaryKey = 'id_skala';
-    protected $fillable = ['skala_kegiatan'];
+    protected $fillable = ['skala_kegiatan',  'createdby', 'editedby', 'deletedby'];
 }

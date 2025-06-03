@@ -11,7 +11,7 @@ class UsersModel extends Authenticatable
     use HasFactory;
     protected $table = 'users';
     protected $primaryKey = 'id_users';
-    protected $fillable = ['id_level', 'id_sa', 'id_fungsi', 'email', 'password'];    
+    protected $fillable = ['id_level', 'id_sa', 'id_fungsi', 'email', 'password',  'createdby', 'editedby', 'deletedby'];    
 
     public function level(): BelongsTo
     {

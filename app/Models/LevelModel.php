@@ -11,5 +11,5 @@ class LevelModel extends Model
 
     protected $table = 'level';
     protected $primaryKey = 'id_level';
-    protected $fillable = ['nama_level'];
+    protected $fillable = ['nama_level',  'createdby', 'editedby', 'deletedby'];
 }

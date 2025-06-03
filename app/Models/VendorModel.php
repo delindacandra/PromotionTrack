@@ -11,7 +11,7 @@ class VendorModel extends Model
     
     protected $table = 'vendor';
     protected $primaryKey = 'id_vendor';
-    protected $fillable = [ 'nama_vendor', 'no_telepon' ];
+    protected $fillable = [ 'nama_vendor', 'no_telepon', 'createdby', 'editedby', 'deletedby' ];
     
     public function barang(){
         return $this->hasMany(BarangModel::class, 'id_vendor', 'id_vendor');

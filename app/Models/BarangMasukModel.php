@@ -10,7 +10,7 @@ class BarangMasukModel extends Model
     use HasFactory;
     protected $table = 'barang_masuk';
     protected $primaryKey = 'id_barangMasuk';
-    protected $fillable = ['tanggal_barangMasuk', 'keterangan'];
+    protected $fillable = ['tanggal_barangMasuk', 'keterangan',  'createdby', 'editedby', 'deletedby'];
 
     public function detailBarangMasuk()
     {

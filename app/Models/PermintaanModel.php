@@ -11,7 +11,7 @@ class PermintaanModel extends Model
     use HasFactory;
     protected $table = 'permintaan';
     protected $primaryKey = 'id_permintaan';
-    protected $fillable = ['id_users', 'id_skala', 'tanggal_diperlukan', 'jumlah', 'keperluan', 'keterangan', 'dokumen'];
+    protected $fillable = ['id_users', 'id_skala', 'tanggal_diperlukan', 'jumlah', 'keperluan', 'keterangan', 'dokumen',  'createdby', 'editedby', 'deletedby'];
 
     public function users(): BelongsTo
     {

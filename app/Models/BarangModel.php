@@ -10,7 +10,7 @@ class BarangModel extends Model
     use HasFactory;
     protected $table = 'data_barang';
     protected $primaryKey = 'id_barang';
-    protected $fillable = ['nama_barang', 'id_vendor', 'gambar'];
+    protected $fillable = ['nama_barang', 'id_vendor', 'gambar', 'createdby', 'editedby', 'deletedby'];
 
     public function stok(){
         return $this->hasOne(StokModel::class, 'id_barang', 'id_barang');

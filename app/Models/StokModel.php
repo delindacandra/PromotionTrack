@@ -11,7 +11,7 @@ class StokModel extends Model
     use HasFactory;
     protected $table = 'stok';
     protected $primaryKey = 'id_stok';
-    protected $fillable = ['id_barang', 'jumlah'];
+    protected $fillable = ['id_barang', 'jumlah', 'createdby', 'editedby', 'deletedby'];
     public $timestamps = true;
 
     public function barang(): BelongsTo{

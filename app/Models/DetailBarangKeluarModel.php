@@ -11,7 +11,7 @@ class DetailBarangKeluarModel extends Model
     use HasFactory;
     protected $table = 'detail_barangkeluar';
     protected $primaryKey = 'id_detailBarangKeluar';
-    protected $fillable = ['id_barangKeluar', 'id_barang',  'jumlah'];
+    protected $fillable = ['id_barangKeluar', 'id_barang',  'jumlah',  'createdby', 'editedby', 'deletedby'];
 
     public function barang_keluar(): BelongsTo
     {
