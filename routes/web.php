@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelolaPenggunaController;
+use App\Http\Controllers\PermintaanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthController::class, 'index'])->name('login');
@@ -52,5 +53,10 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::get('/{id}/edit', [KelolaPenggunaController::class, 'edit'])->middleware('privilege:pengguna,edit');
         Route::put('/{id}', [KelolaPenggunaController::class, 'update'])->middleware('privilege:pengguna,update');
         Route::delete('/{id}', [KelolaPenggunaController::class, 'destroy'])->middleware('privilege:pengguna,destroy');
+    });
+    Route::group(['prefix' => 'permintaan'], function () {
+        Route::get('/', [PermintaanController::class, 'index'])->middleware('privilege:permintaan,index');
+        Route::post('/list', [PermintaanController::class, 'list'])->middleware('privilege:permintaan,list');
+        Route::get('/{id}/detail', [PermintaanController::class, 'show'])->middleware('privilege:permintaan,show');
     });
 });
