@@ -10,8 +10,11 @@ class AuthController extends Controller
 {
     public function index()
     {
-        $users = Auth::user();
-        if ($users) {
+        if (Auth::check()) {
+            if (!in_array(Auth::user()->id_level, [1, 2])) {
+                Auth::logout();
+                return redirect('/login')->with('error', 'Akses tidak diizinkan');
+            }
             return redirect('/dashboard');
         }
         return view('auth.login',);
@@ -33,7 +36,7 @@ class AuthController extends Controller
             session()->put('user.email', $user->email);
             session()->put('user.level', $user->level->nama_level);
             session()->put('user.sa', $user->nama_sa);
-            
+
             return redirect('/dashboard')->with('success', 'Login Berhasil');
         }
         return redirect('/login')->with('failed', 'Email atau Password Salah');

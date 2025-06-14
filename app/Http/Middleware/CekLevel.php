@@ -12,7 +12,7 @@ class CekLevel
     public function handle(Request $request, Closure $next, ...$levels): Response
     {
         if (!Auth::check()) {
-            return redirect('/login');
+            return redirect('/login')->with('error', 'Silahkan login terlebih dahulu');
         }
 
         $user = Auth::user();
@@ -26,6 +26,6 @@ class CekLevel
             return $next($request);
         }
 
-        return redirect('/login')->with('error', 'Maaf anda tidak memiliki akses');
+        return abort(403, 'Maaf, Anda tidak memiliki akses ke halaman ini');
     }
 }
