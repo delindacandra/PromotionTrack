@@ -68,9 +68,10 @@
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="{{ asset('template/dist/assets/img/user2-160x160.jpg') }}"
+                    <img src="https://ui-avatars.com/api/?name={{ urlencode(session('name')) }}&background=0D8ABC&color=fff"
                         class="user-image rounded-circle shadow" alt="User Image" />
-                    <span class="d-none d-md-inline">Admin</span>
+
+                    <span class="d-none d-md-inline">{{ auth()->user()->level->nama_level }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
@@ -78,15 +79,17 @@
                         <img src="{{ asset('template/dist/assets/img/user2-160x160.jpg') }}"
                             class="rounded-circle shadow" alt="User Image" />
                         <p>
-                            Koordinator Gudang Retail Sales
-                            <small>----</small>
+                            {{ auth()->user()->name }}
+                            <small>{{ auth()->user()->email }}</small>
                         </p>
                     </li>
                     <!--end::User Image-->
                     <!--begin::Menu Footer-->
                     <li class="user-footer">
-                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                        <a href="#" class="btn btn-default btn-flat float-end">Log out</a>
+                        <form action="{{ url('/logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-default btn-flat float-end">Log out</button>
+                        </form>
                     </li>
                     <!--end::Menu Footer-->
                 </ul>
