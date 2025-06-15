@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KelolaPenggunaController;
+use App\Http\Controllers\PemohonController;
 use App\Http\Controllers\PermintaanController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,4 +62,7 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::get('/{id}/proses', [PermintaanController::class, 'proses'])->middleware('privilege:permintaan,proses');
         Route::post('/', [PermintaanController::class, 'store']);
     });
+});
+Route::group(['middleware' => ['ceklevel:3']], function () {
+    Route::get('/beranda', [PemohonController::class, 'index']);
 });
