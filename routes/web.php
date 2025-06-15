@@ -58,5 +58,7 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::get('/', [PermintaanController::class, 'index'])->middleware('privilege:permintaan,index');
         Route::post('/list', [PermintaanController::class, 'list'])->middleware('privilege:permintaan,list');
         Route::get('/{id}/detail', [PermintaanController::class, 'show'])->middleware('privilege:permintaan,show');
+        Route::get('/{id}/proses', [PermintaanController::class, 'proses'])->middleware('privilege:permintaan,proses');
+        Route::post('/', [PermintaanController::class, 'store']);
     });
 });
