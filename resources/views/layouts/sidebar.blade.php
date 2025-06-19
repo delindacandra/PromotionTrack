@@ -30,7 +30,7 @@
                     @userHasAccess('barang', 'create')
                         <li class="nav-item">
                             <a href="{{ url('/barang/create') }}" class="nav-link">
-                                <span class="nav-icon" style="font-weight: bold; color: blue;">NEW</span>
+                                <i class="nav-icon bi bi-upload"></i>
                                 <p>Barang Baru</p>
                             </a>
                         </li>
@@ -38,7 +38,7 @@
                     @userHasAccess('barang_keluar', 'create')
                         <li class="nav-item">
                             <a href="{{ url('/barang_keluar') }}" class="nav-link">
-                                <span class="nav-icon" style="font-weight: bold; color: red;">OUT</span>
+                                <i class="nav-icon bi bi-truck"></i>
                                 <p>Barang Keluar</p>
                             </a>
                         </li>
