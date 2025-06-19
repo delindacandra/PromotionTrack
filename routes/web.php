@@ -44,6 +44,7 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::get('/{id}/edit', [BarangKeluarController::class, 'edit'])->middleware('privilege:barang_keluar,edit');
         Route::put('/{id}', [BarangKeluarController::class, 'update'])->middleware('privilege:barang_keluar,update');
         Route::delete('/{id}', [BarangKeluarController::class, 'destroy'])->middleware('privilege:barang_keluar,destroy');
+        Route::get('/cetak/{id}', [BarangKeluarController::class, 'cetak'])->middleware('privilege:barang_keluar,cetak');
     });
     Route::group(['prefix' => 'pengguna'], function () {
         Route::get('/', [KelolaPenggunaController::class, 'index'])->middleware('privilege:pengguna,index');

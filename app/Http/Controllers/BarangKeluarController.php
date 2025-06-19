@@ -6,6 +6,8 @@ use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 use App\Models\DetailBarangKeluarModel;
 use App\Models\FungsiModel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -41,7 +43,7 @@ class BarangKeluarController extends Controller
             ->addColumn('aksi', function ($barangKeluar) {
                 $btn = '';
                 if (userHasAccess('barang_keluar', 'cetak')) {
-                    $btn = '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/cetak') . '" class="btn btn-success btn-sm">Cetak</a> ';
+                    $btn = '<a href="' . url('/barang_keluar/cetak/' . $barangKeluar->id_barangKeluar) . '" class="btn btn-success btn-sm">Cetak</a> ';
                 }
                 if (userHasAccess('barang_keluar', 'show')) {
                     $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/detail') . '" class="btn btn-info btn-sm">Detail</a> ';
@@ -212,5 +214,21 @@ class BarangKeluarController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect('/barang_keluar')->with('error', 'Data gagal dihapus. Pastikan data tidak digunakan di tempat lain.');
         }
+    }
+
+    public function cetak($id)
+    {
+        $barangKeluar = BarangKeluarModel::with([
+            'detailBarangKeluar',
+            'fungsi',
+            'permintaan.users.sales_area'
+        ])->findOrFail($id);
+
+        $pdf = PDF::loadView('barang_keluar.tanda_terima', compact('barangKeluar'));
+
+        $filename = 'Tanda_Terima_' . Carbon::parse($barangKeluar->tanggal_barangKeluar)->format('d-m-Y') . '.pdf';
+
+        return $pdf->download($filename);
+        return view('barang_keluar.tanda_terima', compact('barangKeluar'));
     }
 }
