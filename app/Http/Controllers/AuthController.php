@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
         return match ($user->id_level) {
             1, 2 => redirect('/dashboard')->with('success', 'Login Berhasil'),
-            3    => redirect('/homepage')->with('success', 'Login Berhasil'),
+            3    => redirect('/beranda')->with('success', 'Login Berhasil'),
             default => redirect('/login')->with('error', 'Akses tidak diizinkan'),
         };
     }
