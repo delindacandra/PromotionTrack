@@ -60,9 +60,19 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::post('/list', [PermintaanController::class, 'list'])->middleware('privilege:permintaan,list');
         Route::get('/{id}/detail', [PermintaanController::class, 'show'])->middleware('privilege:permintaan,show');
         Route::get('/{id}/proses', [PermintaanController::class, 'proses'])->middleware('privilege:permintaan,proses');
-        Route::post('/', [PermintaanController::class, 'store']);
+        Route::post('/', [PermintaanController::class, 'store'])->middleware('privilege:permintaan,store');
+        Route::get('/riwayat', [PermintaanController::class, 'riwayat'])->middleware('privilege:permintaan,riwayat');
+        Route::get('/riwayat', [PermintaanController::class, 'riwayat'])->middleware('privilege:permintaan,riwayat');
+        Route::post('/riwayat_list', [PermintaanController::class, 'riwayat_list'])->middleware('privilege:permintaan,list');
     });
 });
+
 Route::group(['middleware' => ['ceklevel:3']], function () {
     Route::get('/beranda', [PemohonController::class, 'index']);
+    Route::group(['prefix' => 'pemohon'], function () {
+        Route::get('/create', [PemohonController::class, 'create'])->middleware('privilege:permintaan,create');
+        Route::post('/', [PemohonController::class, 'store'])->middleware('privilege:permintaan,store');
+        Route::get('/riwayat', [PemohonController::class, 'riwayat'])->middleware('privilege:permintaan,riwayat');
+        Route::post('/riwayat_list', [PemohonController::class, 'riwayat_list'])->middleware('privilege:permintaan,list');
+    });
 });

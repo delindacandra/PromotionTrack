@@ -60,18 +60,10 @@
                             </a>
                         </li>
                     @endUserHasAccess
-                    @userHasAccess('permintaan', 'arsip')
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-files"></i>
-                                <p>Kelola Dokumen</p>
-                            </a>
-                        </li>
-                    @endUserHasAccess
                     @userHasAccess('permintaan', 'riwayat')
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon bi bi-clock"></i>
+                            <a href="{{ url('/permintaan/riwayat') }}" class="nav-link">
+                                <i class="nav-icon bi bi-archive"></i>
                                 <p>Riwayat Permintaan</p>
                             </a>
                         </li>
@@ -100,7 +92,7 @@
                     <li class="nav-header">PERMINTAAN</li>
                     @userHasAccess('permintaan', 'create')
                         <li class="nav-item">
-                            <a href="{{ url('/permintaan/create') }}" class="nav-link">
+                            <a href="{{ url('/pemohon/create') }}" class="nav-link">
                                 <i class="nav-icon bi bi-file-plus"></i>
                                 <p>Ajukan Permintaan</p>
                             </a>
@@ -108,7 +100,7 @@
                     @endUserHasAccess
                     @userHasAccess('permintaan', 'riwayat')
                         <li class="nav-item">
-                            <a href="{{ url('/#') }}" class="nav-link">
+                            <a href="{{ url('/pemohon/riwayat') }}" class="nav-link">
                                 <i class="nav-icon bi bi-archive"></i>
                                 <p>Riwayat Permintaan</p>
                             </a>

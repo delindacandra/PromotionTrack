@@ -75,7 +75,7 @@
                                         {{ $permintaan->tanggal_diperlukan->format('d/m/Y') }}</p>
                                 </div>
                             </div>
-                            <form id="form_permintaan" method="POST" action="{{ url('barang_keluar') }}">
+                            <form id="form_permintaan" method="POST" action="{{ url('permintaan') }}">
                                 @csrf
                                 <table class="table table-bordered" id="table-permintaan">
                                     <thead>

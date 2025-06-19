@@ -6,6 +6,7 @@ use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 use App\Models\DetailBarangKeluarModel;
 use App\Models\PermintaanModel;
+use App\Models\SAModel;
 use App\Models\SkalaKegiatanModel;
 use App\Models\UsersModel;
 use Illuminate\Http\Request;
@@ -27,7 +28,9 @@ class PermintaanController extends Controller
 
     public function list(Request $request)
     {
-        $permintaan = PermintaanModel::with('users.fungsi', 'skala');
+        $permintaan = PermintaanModel::with('users.fungsi', 'skala')
+            ->where('status', '!=', 'selesai')
+            ->orderBy('created_at', 'desc');
 
         if ($request->filter_skala) {
             $permintaan->where('id_skala', $request->filter_skala);
@@ -53,9 +56,15 @@ class PermintaanController extends Controller
 
                 return $btn;
             })
-            ->rawColumns(['aksi'])
+            ->editColumn('dokumen', function ($row) {
+                return $row->dokumen
+                    ? '<a href="' . asset('storage/' . $row->dokumen) . '" target="_blank">Lihat</a>'
+                    : '-';
+            })
+            ->rawColumns(['aksi', 'dokumen'])
             ->make(true);
     }
+
 
     public function show($id)
     {
@@ -119,6 +128,48 @@ class PermintaanController extends Controller
         $permintaan->status = 'selesai';
         $permintaan->save();
 
-        return redirect('/permintaan')->with('success', 'Permintaan berhasil dibuat.');
+        return redirect('/barang_keluar')->with('success', 'Permintaan berhasil dibuat.');
+    }
+
+    public function riwayat()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Riwayat Permintaan',
+            'list' => ['Riwayat']
+        ];
+        $sales_area = SAModel::all();
+        return view('permintaan.riwayat', ['breadcrumb' => $breadcrumb, 'sales_area' => $sales_area]);
+    }
+
+    public function riwayat_list(Request $request)
+    {
+        $permintaan = PermintaanModel::with('users.fungsi', 'users.sales_area', 'skala')->orderBy('created_at', 'desc');
+
+        if ($request->id_sa) {
+            $permintaan->where('id_sa', $request->id_sa);
+        }
+
+        return DataTables::of($permintaan)
+            ->addIndexColumn()
+            ->addColumn('skala_kegiatan', function ($row) {
+                return $row->skala->skala_kegiatan ?? '-';
+            })
+            ->editColumn('dokumen', function ($row) {
+                return $row->dokumen
+                    ? '<a href="' . asset('storage/' . $row->dokumen) . '" target="_blank">Lihat</a>'
+                    : '-';
+            })
+            ->editColumn('status', function ($row) {
+                $warna = match (strtolower($row->status)) {
+                    'diproses' => 'warning',
+                    'ditolak' => 'danger',
+                    'selesai' => 'success',
+                    default => 'primary',
+                };
+
+                return '<span class="badge bg-' . $warna . ' text-uppercase px-2 py-1">' . ucfirst($row->status ?? 'Menunggu') . '</span>';
+            })
+            ->rawColumns(['dokumen', 'status'])
+            ->make(true);
     }
 }

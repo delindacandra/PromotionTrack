@@ -59,7 +59,13 @@
                     </tr>
                     <tr>
                         <th>Dokumen Pendukung</th>
-                        <td>{{ $permintaan->dokumen }}</td>
+                        <td>
+                            @if ($permintaan->dokumen)
+                                <a href="{{ asset('storage/' . $permintaan->dokumen) }}" target="_blank">Lihat Dokumen</a>
+                            @else
+                                -
+                            @endif
+                        </td>
                     </tr>
                 </table>
             @endempty
