@@ -17,26 +17,26 @@ class DetailBarangKeluarSeeder extends Seeder
             [
                 'id_detailBarangKeluar' => 1,
                 'id_barangKeluar' => 1,
-                'id_barang' => 5,
-                'jumlah'  => 100
+                'id_barang' => 2,
+                'jumlah'  => 30
             ],
             [
                 'id_detailBarangKeluar' => 2,
                 'id_barangKeluar' => 2,
-                'id_barang' => 6,
-                'jumlah'  => 100
+                'id_barang' => 4,
+                'jumlah'  => 10
             ],
             [
                 'id_detailBarangKeluar' => 3,
                 'id_barangKeluar' => 3,
-                'id_barang' => 7,
-                'jumlah'  => 100
+                'id_barang' => 2,
+                'jumlah'  => 10
             ],
             [
                 'id_detailBarangKeluar' => 4,
                 'id_barangKeluar' => 4,
-                'id_barang' => 9,
-                'jumlah'  => 100
+                'id_barang' => 3,
+                'jumlah'  => 10
             ],
         ];
         DB::table('detail_barangKeluar')->insert($data);

@@ -41,12 +41,20 @@
                         <span>: {{ $barangKeluar->fungsi->nama_fungsi }}</span>
                     </div>
                     <div class="flex mb-1">
+                        <span class="w-50 me-3" style="font-weight: bold">Sales Area</span>
+                        <span>: {{ $barangKeluar->sales_area->nama_sa }}</span>
+                    </div>
+                    <div class="flex mb-1">
                         <span class="w-50 me-3" style="font-weight: bold">Keperluan</span>
-                        <span>: {{ $barangKeluar->keperluan }}</span>
+                        <span>: {{ $barangKeluar->keperluan !== '' ? $barangKeluar->keperluan : '-' }}</span>
                     </div>
                     <div class="flex mb-1">
                         <span class="w-50 me-3" style="font-weight: bold">Keterangan</span>
-                        <span>: {{ $barangKeluar->keterangan }}</span>
+                        <span>: {{ $barangKeluar->keterangan !== '' ? $barangKeluar->keterangan : '-' }}</span>
+                    </div>
+                    <div class="flex mb-1">
+                        <span class="w-50 me-3" style="font-weight: bold">Nama Pemohon</span>
+                        <span>: {{ $barangKeluar->createdby }}</span>
                     </div>
                     <div class="flex mb-1">
                         <span class="w-50 me-3" style="font-weight: bold">Tanggal Barang Keluar</span>

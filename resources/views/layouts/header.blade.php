@@ -43,13 +43,18 @@
                     <i class="bi bi-list"></i>
                 </a>
             </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
+            @if (in_array(auth()->user()->level->id_level, [1, 2]))
+                <li class="nav-item d-none d-md-block"><a href="{{ url('dashboard') }}" class="nav-link">Home</a></li>
+            @else
+                <li class="nav-item d-none d-md-block"><a href="{{ url('beranda') }}" class="nav-link">Home</a></li>
+            @endif
+
         </ul>
         <!--end::Start Navbar Links-->
         <!--begin::End Navbar Links-->
         <ul class="navbar-nav ms-auto">
             <!--begin::Notifications Dropdown Menu-->
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a class="nav-link" data-bs-toggle="dropdown" href="#">
                     <i class="bi bi-bell-fill"></i>
                     <span class="navbar-badge badge text-bg-warning">15</span>
@@ -63,7 +68,7 @@
                     </a>
                     <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
                 </div>
-            </li>
+            </li> --}}
             <!--end::Notifications Dropdown Menu-->
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
@@ -76,10 +81,11 @@
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
                     <li class="user-header text-bg-primary">
-                        <img src="{{ asset('template/dist/assets/img/user2-160x160.jpg') }}"
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(session('name')) }}&background=0D8ABC&color=fff"
                             class="rounded-circle shadow" alt="User Image" />
                         <p>
                             {{ auth()->user()->name }}
+                            <strong>{{ session('name') }}</strong><br>
                             <small>{{ auth()->user()->email }}</small>
                         </p>
                     </li>
@@ -88,7 +94,7 @@
                     <li class="user-footer">
                         <form action="{{ url('/logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-default btn-flat float-end">Log out</button>
+                            <button type="submit" class="btn btn-outline-primary float-end">Log out</button>
                         </form>
                     </li>
                     <!--end::Menu Footer-->

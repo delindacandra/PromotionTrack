@@ -32,12 +32,13 @@
             <!--begin::Sidebar Brand-->
             <div class="sidebar-brand">
                 <!--begin::Brand Link-->
-                <a href="./index.html" class="brand-link">
+                <a>
                     <!--begin::Brand Image-->
-                    <img src="#" alt="#" class="brand-image opacity-75 shadow" />
+                    <img src="{{ asset('images/patra niaga.png') }}" alt="Patraniaga Jatimbalinus"
+                        class="brand-image opacity-100  img-fluid" style="max-height: 60px;" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
-                    <span class="brand-text fw-light">#</span>
+                    <span class="brand-text fw-light"></span>
                     <!--end::Brand Text-->
                 </a>
                 <!--end::Brand Link-->

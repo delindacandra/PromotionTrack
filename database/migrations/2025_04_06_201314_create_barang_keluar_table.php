@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('barang_keluar', function (Blueprint $table) {
             $table->id('id_barangKeluar');
             $table->unsignedBigInteger('id_fungsi')->index();
+            $table->unsignedBigInteger('id_sa')->index();
             $table->dateTime('tanggal_barangKeluar');
             $table->string('keperluan')->nullable();
             $table->string('keterangan')->nullable();
             $table->unsignedBigInteger('id_permintaan')->index()->nullable();
             $table->timestamps();
             $table->foreign('id_fungsi')->references('id_fungsi')->on('fungsi');
+            $table->foreign('id_sa')->references('id_sa')->on('sales_area');
             $table->foreign('id_permintaan')->references('id_permintaan')->on('permintaan');
         });
     }

@@ -219,9 +219,7 @@ class BarangKeluarController extends Controller
     public function cetak($id)
     {
         $barangKeluar = BarangKeluarModel::with([
-            'detailBarangKeluar',
-            'fungsi',
-            'permintaan.users.sales_area'
+            'detailBarangKeluar', 'fungsi', 'sales_area'
         ])->findOrFail($id);
 
         $pdf = PDF::loadView('barang_keluar.tanda_terima', compact('barangKeluar'));

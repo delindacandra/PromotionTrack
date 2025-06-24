@@ -17,32 +17,36 @@ class BarangKeluarSeeder extends Seeder
             [
                 'id_barangKeluar' => 1,
                 'id_fungsi' => 4,
-                'tanggal_barangKeluar' => '2024/09/14',
-                'keperluan' => 'SA NTB',
-                'keterangan' => '',
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/02/15',
+                'keperluan' => 'Support Kegiatan PKB IX',
+                'keterangan' => 'Kepada SPPSN',
                 'id_permintaan' => null
             ],
             [
                 'id_barangKeluar' => 2,
                 'id_fungsi' => 4,
-                'tanggal_barangKeluar' => '2024/09/14',
-                'keperluan' => 'SA NTB',
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/02/26',
+                'keperluan' => 'MyPertamina Basket Ball Cup',
                 'keterangan' => '',
                 'id_permintaan' => null
             ],
             [
                 'id_barangKeluar' => 3,
                 'id_fungsi' => 4,
-                'tanggal_barangKeluar' => '2024/09/14',
-                'keperluan' => 'SA NTB',
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/02/26',
+                'keperluan' => 'MyPertamina Basket Ball Cup',
                 'keterangan' => '',
                 'id_permintaan' => null
             ],
             [
                 'id_barangKeluar' => 4,
                 'id_fungsi' => 4,
-                'tanggal_barangKeluar' => '2024/09/14',
-                'keperluan' => 'SA NTB',
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/03/21',
+                'keperluan' => 'Safety Campaign',
                 'keterangan' => '',
                 'id_permintaan' => null
             ]

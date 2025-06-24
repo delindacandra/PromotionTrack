@@ -58,6 +58,9 @@
                         <input type="text" class="form-control" placeholder="Name" name="name" />
                         <div class="input-group-text"><span class="bi bi-person"></span></div>
                     </div>
+                    @error('name')
+                        <small>{{ $message }}</small>
+                    @enderror
                     <div class="input-group mb-3">
                         <input type="email" class="form-control" placeholder="Email" name="email" />
                         <div class="input-group-text"><span class="bi bi-envelope"></span></div>
@@ -65,11 +68,14 @@
                     @error('email')
                         <small>{{ $message }}</small>
                     @enderror
-                    <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password"
-                            id="password" />
-                        <div class="input-group-text">
-                            <span class="bi bi-eye-slash" id="togglePassword" style="cursor: pointer;"></span>
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="password" id="password" name="password"
+                                class="form-control" placeholder="Password">
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword"
+                                style="cursor: pointer;">
+                                <i class="bi bi-eye-slash" id="iconToggle"></i>
+                            </button>
                         </div>
                     </div>
                     @error('password')
@@ -129,15 +135,16 @@
             }
         });
         // Toogle Password
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+        const icon = document.getElementById('iconToggle');
+        const password = document.getElementById('password');
 
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+        toggleButton.addEventListener('click', function() {
+            const isPassword = password.type === 'password';
+            password.type = isPassword ? 'text' : 'password';
 
-            this.classList.toggle('bi-eye');
-            this.classList.toggle('bi-eye-slash');
+            icon.classList.toggle('bi-eye');
+            icon.classList.toggle('bi-eye-slash');
         });
     </script>
 

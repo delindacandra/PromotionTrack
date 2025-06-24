@@ -22,7 +22,7 @@
         }
 
         .items-table {
-            border: 1px solid black;
+            border: 0.3px solid rgb(100, 99, 99);
         }
 
         th,
@@ -90,7 +90,7 @@
         <tr>
             <td>Kepada</td>
             <td>: {{ $barangKeluar->fungsi->nama_fungsi }} |
-                {{ $barangKeluar->permintaan->users->sales_area->nama_sa ?? '-' }}</td>
+                {{ $barangKeluar->sales_area->nama_sa ?? '-' }}</td>
         </tr>
         <tr>
             <td>Keperluan</td>
@@ -127,8 +127,8 @@
             <td>Penerima</td>
         </tr>
         <tr>
-            <td></br></br></br>____________________</td>
-            <td></br></br></br>____________________</td>
+            <td></br></br>____________________</td>
+            <td></br></br>____________________</td>
         </tr>
     </table>
     <table class="signature">
@@ -136,7 +136,7 @@
             <td>Mengetahui</td>
         </tr>
         <tr>
-            <td></br></br></br>____________________</td>
+            <td></br></br>____________________</td>
         </tr>
     </table>
 

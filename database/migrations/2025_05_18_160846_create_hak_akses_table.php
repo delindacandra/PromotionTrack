@@ -31,7 +31,6 @@ return new class extends Migration
                 'riwayat',
                 'dashboard',
                 'status',
-                'arsip',
             ])->default('index');
             $table->timestamps();
             $table->foreign('id_level')->references('id_level')->on('level')->onDelete('cascade');

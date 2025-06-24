@@ -18,7 +18,7 @@ class AddAuditColumns extends Command
     {
         $tables = DB::connection()->getDoctrineSchemaManager()->listTableNames();
 
-        $skipTables = ['migrations', 'password_resets', 'personal_access_tokens', 'failed_jobs'];
+        $skipTables = ['migrations', 'password_reset_tokens', 'personal_access_tokens', 'failed_jobs'];
 
         foreach ($tables as $table) {
             if (in_array($table, $skipTables)) {
@@ -34,9 +34,6 @@ class AddAuditColumns extends Command
                 }
                 if (!Schema::hasColumn($table, 'editedby')) {
                     $tableBlueprint->string('editedby')->nullable()->after('createdby');
-                }
-                if (!Schema::hasColumn($table, 'deletedby')) {
-                    $tableBlueprint->string('deletedby')->nullable()->after('editedby');
                 }
             });
             $this->info("Kolom audit berhasil ditambahkan ke tabel: $table");

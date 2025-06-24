@@ -27,6 +27,9 @@ class BarangKeluarModel extends Model
         return $this->belongsTo(FungsiModel::class, 'id_fungsi', 'id_fungsi');
     }
 
+    public function sales_area(){
+        return $this->belongsTo(SAModel::class, 'id_sa', 'id_sa');
+    }
     protected $casts = [
         'tanggal_barangKeluar' => 'datetime',
     ];

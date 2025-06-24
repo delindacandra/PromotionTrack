@@ -108,13 +108,6 @@
                     @endUserHasAccess
                 @endauth
             @endif
-            <li class="nav-header">PROFIL PENGGUNA</li>
-            <li class="nav-item">
-                <a href="{{ url('/#') }}" class="nav-link">
-                    <i class="nav-icon bi bi-person"></i>
-                    <p>Profil Saya</p>
-                </a>
-            </li>
             <li>
                 <hr style="border-top: 1.5px solid #ccc;">
             </li>

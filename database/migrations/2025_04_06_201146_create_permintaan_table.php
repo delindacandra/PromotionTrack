@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('permintaan', function (Blueprint $table) {
             $table->id('id_permintaan');
             $table->unsignedBigInteger('id_users')->index();
+            $table->unsignedBigInteger('id_fungsi')->index();
+            $table->unsignedBigInteger('id_sa')->index();
             $table->unsignedBigInteger('id_skala')->index();
             $table->dateTime('tanggal_diperlukan');
             $table->integer('jumlah');
@@ -22,6 +24,8 @@ return new class extends Migration
             $table->string('dokumen')->nullable();
             $table->timestamps();
             $table->foreign('id_users')->references('id_users')->on('users');
+            $table->foreign('id_fungsi')->references('id_fungsi')->on('fungsi');
+            $table->foreign('id_sa')->references('id_sa')->on('sales_area');
             $table->foreign('id_skala')->references('id_skala')->on('skala_kegiatan');
         });
     }

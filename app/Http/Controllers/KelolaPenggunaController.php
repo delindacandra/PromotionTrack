@@ -122,17 +122,17 @@ class KelolaPenggunaController extends Controller
             'password' => 'nullable|min:6',
         ]));
 
-        $name = session('name');
-        $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
-        $info_email = explode('@', $email)[0];
-        $editedby = "{$name}|{$info_email}";
+        // $name = session('name');
+        // $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
+        // $info_email = explode('@', $email)[0];
+        // $editedby = "{$name}|{$info_email}";
 
         $users = UsersModel::findOrFail($id);
         $users->id_level = $request->level;
         $users->id_sa = $request->sa;
         $users->id_fungsi = $request->fungsi;
         $users->email = $request->email;
-        $users->editedby = $editedby;
+        // $users->editedby = $editedby;
 
         if ($request->password) {
             $users->password = Hash::make($request->password);
