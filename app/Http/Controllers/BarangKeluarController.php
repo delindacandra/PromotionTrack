@@ -38,7 +38,7 @@ class BarangKeluarController extends Controller
                 $query->whereDate('tanggal_barangKeluar', '<=', $request->end_date);
             });
         }
-        return DataTables::of($barangKeluar->get())
+        return DataTables::of($barangKeluar)
             ->addIndexColumn()
             ->addColumn('aksi', function ($barangKeluar) {
                 $btn = '';

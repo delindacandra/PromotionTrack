@@ -20,9 +20,9 @@
                     </div>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table table-bordered" id="table_barangMasuk">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
@@ -35,6 +35,7 @@
                         </thead>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -107,7 +108,7 @@
                     var rowspanMap = {};
                     var nomor = 1;
 
-                    api.column(1,{
+                    api.column(1, {
                         page: 'current'
                     }).data().each(function(data, i) {
                         var id = api.row(i).data().id_barangMasuk;
@@ -125,13 +126,13 @@
                             $(rows).eq(i).find('td:eq(0)').html(nomor); // No
                             $(rows).eq(i).find('td:eq(0)').attr('rowspan', rowspanCount);
                             $(rows).eq(i).find('td:eq(1)').attr('rowspan',
-                            rowspanCount); // Tanggal
+                                rowspanCount); // Tanggal
                             $(rows).eq(i).find('td:eq(5)').attr('rowspan',
-                            rowspanCount); // Keterangan
+                                rowspanCount); // Keterangan
                             $(rows).eq(i).find('td:eq(6)').attr('rowspan',
-                            rowspanCount); // Aksi
+                                rowspanCount); // Aksi
 
-                            nomor++; 
+                            nomor++;
                         }
                         last = id;
                     });

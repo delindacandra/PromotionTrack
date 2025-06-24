@@ -5,6 +5,7 @@
         <div class="card-header">
             <div class="card-title">Detail Permintaan Barang</div>
         </div>
+
         <div class="card-body">
             @empty($permintaan)
                 <div class="alert alert-danger alert-dismissible">
@@ -70,9 +71,12 @@
                 </table>
             @endempty
         </div>
-        <div class="card-footer">
-            <a class="btn btn-default border-primary float-end" href="{{ url('permintaan') }}">Kembali</a>
+
+        <div class="me-3 mb-3">
+            <a class="btn btn-outline-primary float-end" href="{{ url('permintaan') }}">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
         </div>
-        </form>
+
     </div>
 @endsection

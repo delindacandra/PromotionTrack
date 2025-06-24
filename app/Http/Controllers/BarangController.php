@@ -109,7 +109,6 @@ class BarangController extends Controller
         StokModel::create([
             'id_barang' => $barang->id_barang,
             'jumlah' => $request->jumlah,
-            'createdby' => $createdby,
         ]);
         return redirect('/barang')->with('success', 'Data berhasil ditambahkan');
     }

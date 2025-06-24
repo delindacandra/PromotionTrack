@@ -32,9 +32,10 @@
                 </table>
             @endempty
         </div>
-        <div class="card-footer">
-            <a class="btn btn-default border-primary float-end" href="{{ url('pengguna') }}">Kembali</a>
+        <div class="me-3 mb-3">
+            <a class="btn btn-outline-primary float-end" href="{{ url('pengguna') }}">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
         </div>
-        </form>
     </div>
 @endsection

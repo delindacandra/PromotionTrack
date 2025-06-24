@@ -4,10 +4,10 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="card p-3">
-                <div class="col-2 me-auto">
-                    <div class="d-flex align-items-center gap-2">
-                        <label for="filter_skala" class="form-label">Filter: </label>
-                        <select class="form-select form-select-sm" id="filter_skala" name="filter_skala">
+                <div class="col-12 col-md-6 col-lg-4 mb-2">
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <label for="filter_skala" class="form-label mb-0">Filter:</label>
+                        <select class="form-select form-select-sm w-auto flex-grow-1" id="filter_skala" name="filter_skala">
                             <option value="">-- Skala Kegiatan --</option>
                             @foreach ($skala as $sk)
                                 <option value="{{ $sk->id_skala }}">{{ $sk->skala_kegiatan }}</option>
@@ -16,9 +16,10 @@
                     </div>
                 </div>
 
-                <div class="card-body">
+
+                <div class="card-body table-responsive">
                     <table class="table table-bordered" id="table_permintaan">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>No</th>
                                 <th>Pemohon</th>
@@ -61,7 +62,7 @@
                     data: "users.fungsi.nama_fungsi",
                     className: "",
                     orderable: false,
-                    searchable: false,
+                    searchable: true,
                 }, {
                     data: "skala.skala_kegiatan",
                     className: "",
@@ -82,7 +83,7 @@
                     className: "",
                     orderable: false,
                     searchable: false
-                },{
+                }, {
                     data: "tanggal_diperlukan",
                     className: "",
                     orderable: false,

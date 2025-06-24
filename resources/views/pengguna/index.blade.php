@@ -4,35 +4,42 @@
     <div class="app-content">
         <div class="container-fluid">
             <div class="card p-3">
-                <div class="row align-items-center">
-                    <div class="col-2 me-auto">
-                        <select class="form-select form-select-sm" id="filter_sa" name="filter_sa">
-                            <option value="">-- Sales Area --</option>
-                            @foreach ($sales_area as $sa)
-                                <option value="{{ $sa->id_sa }}">{{ $sa->nama_sa }}</option>
-                            @endforeach
-                        </select>
+                <div class="row align-items-center mb-3">
+                    <div class="col-12 col-md-6 col-lg-4 mb-2">
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <label for="filter_sa" class="form-label mb-0">Filter:</label>
+                            <select class="form-select form-select-sm w-auto flex-grow-1" id="filter_sa" name="filter_sa">
+                                <option value="">-- Sales Area --</option>
+                                @foreach ($sales_area as $sa)
+                                    <option value="{{ $sa->id_sa }}">{{ $sa->nama_sa }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-auto d-flex gap-2">
+
+                    <div class="col-12 col-md-6 col-lg-8 text-md-end mb-2">
                         <a class="btn btn-sm btn-primary" href="{{ url('pengguna/create') }}">Tambah</a>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-bordered" id="table_users">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Level</th>
-                                    <th>Sales Area</th>
-                                    <th>Fungsi</th>
-                                    <th>Email</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                </div>
+
+
+                <div class="card-body table-responsive">
+                    <table class="table table-bordered" id="table_users">
+                        <thead class="table-light">
+                            <tr>
+                                <th>No</th>
+                                <th>Level</th>
+                                <th>Sales Area</th>
+                                <th>Fungsi</th>
+                                <th>Email</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 

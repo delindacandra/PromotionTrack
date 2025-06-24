@@ -20,9 +20,9 @@
                     </div>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table table-bordered" id="table_barangKeluar">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
@@ -115,6 +115,7 @@
                         if (id === last) {
                             $(rows).eq(i).find('td:eq(0)').css('display', 'none'); // No
                             $(rows).eq(i).find('td:eq(1)').css('display', 'none'); // Tanggal
+                            $(rows).eq(i).find('td:eq(3)').css('display', 'none'); // Keperluan
                             $(rows).eq(i).find('td:eq(5)').css('display', 'none'); // Keterangan
                             $(rows).eq(i).find('td:eq(6)').css('display', 'none'); // Aksi
                         } else {
@@ -126,6 +127,8 @@
                             $(rows).eq(i).find('td:eq(0)').attr('rowspan', rowspanCount);
                             $(rows).eq(i).find('td:eq(1)').attr('rowspan',
                                 rowspanCount); // Tanggal
+                            $(rows).eq(i).find('td:eq(3)').attr('rowspan',
+                                rowspanCount); // Keperluan
                             $(rows).eq(i).find('td:eq(5)').attr('rowspan',
                                 rowspanCount); // Keterangan
                             $(rows).eq(i).find('td:eq(6)').attr('rowspan',

@@ -5,22 +5,22 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- Kolom Tabel (kiri) -->
-                <div class="col-md-6">
-                    <div class="card p-3">
-                        <div class="card-header py-2">
-                            <h5 class="text-center fw-bold mb-0">Daftar Barang</h5>
+                <div class="col-12 col-lg-6">
+                    <div class="card card-info card-outline mb-4">
+                        <div class="card-header">
+                            <div class="card-title">Daftar Barang</div>
                         </div>
                         <div class="card-body">
-                            <div class="form-group row mb-3">
+                            <div class="mb-3 row align-items-center">
                                 <label class="col-2 control-label col-form-label">Cari</label>
-                                <div class="col-10">
+                                <div class="col-sm-10">
                                     <input type="text" class="form-control" id="searchBar"
                                         placeholder="Masukkan nama barang">
                                 </div>
                             </div>
-                            <div style="max-height: 500px; overflow-y: auto;">
+                            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">>
                                 <table class="table table-bordered" id="table-barang">
-                                    <thead>
+                                    <thead class="table-light">
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Barang</th>
@@ -36,10 +36,10 @@
                                                 <td>{{ $barang->nama_barang }}</td>
                                                 <td>{{ optional($barang->stok)->jumlah ?? 0 }}</td>
                                                 <td><img src="{{ asset('storage/' . $barang->gambar) }}" alt="Gambar"
-                                                        width="50px"></td>
+                                                        width="40px"></td>
                                                 <td>
                                                     <button type="button"
-                                                        class="btn btn-outline-secondary btn-sm tambah-barang"
+                                                        class="btn btn-outline-primary btn-sm tambah-barang"
                                                         data-id="{{ $barang->id_barang }}"
                                                         data-nama="{{ $barang->nama_barang }}"
                                                         data-stok="{{ $barang->stok->jumlah ?? 0 }}">
@@ -56,53 +56,60 @@
                 </div>
 
                 <!-- Kolom Form (kanan) -->
-                <div class="col-md-6">
-                    <div class="card p-3">
-                        <div class="card-header py-2">
+                <div class="col-12 col-lg-6">
+                    <div class="card card-primary card-outline mb-4">
+                        <div class="card-header">
                             <h5 class="text-center fw-bold mb-0">Form Permintaan Barang</h5>
                         </div>
                         <div class="card-body">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <p><strong>Sales Area:</strong> {{ $permintaan->users->sales_area->nama_sa ?? '-' }}</p>
-                                    <p><strong>Fungsi:</strong> {{ $permintaan->users->fungsi->nama_fungsi ?? '-' }}</p>
-                                    <p><strong>Email:</strong> {{ $permintaan->users->email ?? '-' }}</p>
-                                    <p><strong>Skala Kegiatan:</strong> {{ $permintaan->skala->skala_kegiatan }}</p>
-                                    <p><strong>Jumlah:</strong> {{ $permintaan->jumlah }}</p>
-                                    <p><strong>Keperluan:</strong> {{ $permintaan->keperluan }}</p>
-                                    <p><strong>Keterangan:</strong> {{ $permintaan->keterangan }}</p>
-                                    <p><strong>Tanggal Diperlukan:</strong>
-                                        {{ $permintaan->tanggal_diperlukan->format('d/m/Y') }}</p>
-                                </div>
+                            <div class="mb-3">
+                                <p><strong>Sales Area:</strong> {{ $permintaan->users->sales_area->nama_sa ?? '-' }}</p>
+                                <p><strong>Fungsi:</strong> {{ $permintaan->users->fungsi->nama_fungsi ?? '-' }}</p>
+                                <p><strong>Email:</strong> {{ $permintaan->users->email ?? '-' }}</p>
+                                <p><strong>Skala Kegiatan:</strong> {{ $permintaan->skala->skala_kegiatan }}</p>
+                                <p><strong>Jumlah:</strong> {{ $permintaan->jumlah }}</p>
+                                <p><strong>Keperluan:</strong> {{ $permintaan->keperluan }}</p>
+                                <p><strong>Keterangan:</strong> {{ $permintaan->keterangan }}</p>
+                                <p><strong>Tanggal Diperlukan:</strong>
+                                    {{ $permintaan->tanggal_diperlukan->format('d/m/Y') }}</p>
                             </div>
                             <form id="form_permintaan" method="POST" action="{{ url('permintaan') }}">
                                 @csrf
-                                <table class="table table-bordered" id="table-permintaan">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Barang</th>
-                                            <th>Stok</th>
-                                            <th>Jumlah</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="barang-list">
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="table-permintaan">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Barang</th>
+                                                <th>Stok</th>
+                                                <th>Jumlah</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="barang-list">
+                                        </tbody>
+                                    </table>
+                                </div>
+
                                 <input type="hidden" name="id_permintaan" value="{{ $permintaan->id_permintaan }}">
+
                                 <input type="hidden" name="items" id="items">
+
                                 <div class="mb-3 mt-3">
                                     <div class="mb-3">
                                         <label for="tanggal_barangKeluar" class="form-label">Tanggal Barang Keluar</label>
                                         <input type="date" class="form-control" id="tanggal_barangKeluar"
                                             name="tanggal_barangKeluar" />
                                     </div>
-                                    <div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                        <a class="btn btn-default border-primary"
-                                            href="{{ url('permintaan') }}">Kembali</a>
+                                    <div class="mt-4 d-flex justify-content-start gap-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-save me-1"></i> Submit
+                                        </button>
+                                        <a class="btn btn-outline-primary" href="{{ url('permintaan') }}">
+                                            <i class="bi bi-arrow-left me-1"></i> Kembali
+                                        </a>
                                     </div>
+                                </div>
                             </form>
                         </div>
                     </div>

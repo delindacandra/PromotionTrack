@@ -3,11 +3,11 @@
 @section('content')
     <div class="card card-primary card-outline mb-4">
         <div class="card-header">
-            <div class="card-title">Input data barang baru</div>
+            <div class="card-title">Input Data Pengguna Baru</div>
         </div>
-        <form method="POST" action="{{ url('pengguna') }}" class="form-horizontal" enctype="multipart/form-data">
-            @csrf
-            <div class="card-body">
+        <div class="card-body">
+            <form method="POST" action="{{ url('pengguna') }}" class="form-horizontal" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
                     <div class="col-5">
                         <label for="level" class="form-label">Level</label>
@@ -46,17 +46,22 @@
                     </div>
                     <div>
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control  @error('password') is-invalid @enderror" id="password" name="password" />
+                        <input type="password" class="form-control  @error('password') is-invalid @enderror" id="password"
+                            name="password" />
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <a class="btn btn-default border-primary" href="{{ url('pengguna') }}">Kembali</a>
-            </div>
-        </form>
+                <div class="mt-4 d-flex justify-content-start gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i> Submit
+                    </button>
+                    <a class="btn btn-outline-primary" href="{{ url('pengguna') }}">
+                        <i class="bi bi-arrow-left me-1"></i> Kembali
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection

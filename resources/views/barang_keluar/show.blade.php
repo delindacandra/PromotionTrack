@@ -13,24 +13,26 @@
                 </div>
             @else
                 <!-- Tabel list barang keluar -->
-                <table class="table table-bordered  mb-3">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Barang</th>
-                            <th>Jumlah</th>
-                        </tr>
-                    </thead>
-                    <tbody id="barang-list">
-                        @foreach ($detailBarangKeluar as $detail)
-                            <tr data-id="{{ $detail->id_barang }}">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $detail->barang->nama_barang }}</td>
-                                <td>{{ $detail->jumlah }}</td>
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-3">
+                        <thead class="table-light">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Barang</th>
+                                <th>Jumlah</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="barang-list">
+                            @foreach ($detailBarangKeluar as $detail)
+                                <tr data-id="{{ $detail->id_barang }}">
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $detail->barang->nama_barang }}</td>
+                                    <td>{{ $detail->jumlah }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
                 <!-- Informasi barang keluar -->
                 <div class="mt-4 space-y-2 px-2 pb-2">
@@ -53,10 +55,12 @@
                 </div>
             @endempty
         </div>
-        <div class="card-footer">
-            <a class="btn btn-default border-primary float-end" href="{{ url('barang_keluar') }}">Kembali</a>
+
+        <div class="me-3 mb-3">
+            <a class="btn btn-outline-primary float-end" href="{{ url('barang_keluar') }}">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
         </div>
-        </form>
     </div>
 @endsection
 

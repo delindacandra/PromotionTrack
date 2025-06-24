@@ -23,14 +23,14 @@
                     </tr>
                     <tr>
                         <th>Stok barang</th>
-                        <td>{{ $barang->stok ? $barang->stok->jumlah : '0'}}</td>
+                        <td>{{ $barang->stok ? $barang->stok->jumlah : '0' }}</td>
                     </tr>
                     <tr>
                         <th>Gambar barang</th>
                         <td>
                             @if ($barang->gambar)
-                                <img src="{{ asset('storage/' . $barang->gambar) }}" alt="Gambar barang"
-                                    class="img-fluid" width="150px">
+                                <img src="{{ asset('storage/' . $barang->gambar) }}" alt="Gambar barang" class="img-fluid"
+                                    width="150px">
                             @else
                                 <span class="text-danger">Tidak ada gambar</span>
                             @endif
@@ -46,8 +46,10 @@
                 </table>
             @endempty
         </div>
-        <div class="card-footer">
-            <a class="btn btn-default border-primary float-end" href="{{ url('barang') }}">Kembali</a>
+        <div class="me-3 mb-3">
+            <a class="btn btn-outline-primary float-end" href="{{ url('barang_keluar') }}">
+                <i class="bi bi-arrow-left me-1"></i> Kembali
+            </a>
         </div>
         </form>
     </div>

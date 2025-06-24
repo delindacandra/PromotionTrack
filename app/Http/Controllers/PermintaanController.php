@@ -143,10 +143,13 @@ class PermintaanController extends Controller
 
     public function riwayat_list(Request $request)
     {
-        $permintaan = PermintaanModel::with('users.fungsi', 'users.sales_area', 'skala')->orderBy('created_at', 'desc');
+        $permintaan = PermintaanModel::with('users.fungsi', 'users.sales_area', 'skala')
+            ->orderBy('created_at', 'desc');
 
-        if ($request->id_sa) {
-            $permintaan->where('id_sa', $request->id_sa);
+        if ($request->filter_sa) {
+            $permintaan->whereHas('users', function ($query) use ($request) {
+                $query->where('id_sa', $request->filter_sa);
+            });
         }
 
         return DataTables::of($permintaan)

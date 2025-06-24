@@ -14,9 +14,9 @@
                     </select>
                 </div>
 
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <table class="table table-bordered" id="table_riwayat">
-                        <thead>
+                        <thead class="table-light">
                             <tr>
                                 <th>No</th>
                                 <th>Sales Area</th>
@@ -107,7 +107,7 @@
                     searchable: false
                 }],
             });
-            $('#filter_sa').on('change', function() {
+            $('#filter_sa').on('click', function() {
                 dataRiwayat.ajax.reload();
             });
         });

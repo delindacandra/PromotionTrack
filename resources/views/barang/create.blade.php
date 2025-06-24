@@ -3,11 +3,11 @@
 @section('content')
     <div class="card card-primary card-outline mb-4">
         <div class="card-header">
-            <div class="card-title">Input data barang baru</div>
+            <div class="card-title">Form Input Barang Baru</div>
         </div>
-        <form method="POST" action="{{ url('barang') }}" class="form-horizontal" enctype="multipart/form-data">
-            @csrf
-            <div class="card-body">
+        <div class="card-body">
+            <form method="POST" action="{{ url('barang') }}" class="form-horizontal" enctype="multipart/form-data">
+                @csrf
                 <div class="mb-3">
                     <label for="nama_barang" class="form-label">Nama Barang</label>
                     <input type="text" class="form-control" id="nama_barang" name="nama_barang" />
@@ -32,12 +32,18 @@
                     <label for="jumlah" class="form-label">Jumlah</label>
                     <input type="number" class="form-control" id="jumlah" min="0" name="jumlah" />
                 </div>
-            </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <a class="btn btn-default border-primary" href="{{ url('barang') }}">Kembali</a>
-            </div>
-        </form>
+
+                <div class="mt-4 d-flex justify-content-start gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i> Submit
+                    </button>
+                    <a class="btn btn-outline-primary" href="{{ url('barang') }}">
+                        <i class="bi bi-arrow-left me-1"></i> Kembali
+                    </a>
+                </div>
+
+            </form>
+        </div>
     </div>
 @endsection
 

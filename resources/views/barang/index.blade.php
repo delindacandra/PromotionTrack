@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered" id="table_barang">
-                            <thead>
+                            <thead class="table-light">
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Barang</th>
