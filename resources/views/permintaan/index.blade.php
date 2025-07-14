@@ -103,6 +103,56 @@
             $('#filter_skala').on('change', function() {
                 dataPermintaan.ajax.reload();
             });
+            // Tombol Setuju
+            $('#table_permintaan').on('click', '.btn-setuju', function() {
+                var id = $(this).data('id');
+                if (confirm('Apakah Anda yakin ingin menyetujui permintaan ini?')) {
+                    $.ajax({
+                        url: "{{ url('/permintaan') }}/" + id + "/setuju",
+                        method: 'POST',
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(res) {
+                            if (res.success) {
+                                $('#table_permintaan').DataTable().ajax.reload(null, false);
+                                alert(res.message);
+                            } else {
+                                alert(res.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert('Terjadi kesalahan: ' + xhr.responseText);
+                        }
+                    });
+                }
+            });
+
+            //Tombol Tolak
+            $('#table_permintaan').on('click', '.btn-tolak', function() {
+                var id = $(this).data('id');
+                if (confirm('Apakah Anda yakin ingin menolak permintaan ini?')) {
+                    $.ajax({
+                        url: "{{ url('/permintaan') }}/" + id + "/tolak",
+                        method: 'POST',
+                        data: {
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(res) {
+                            if (res.success) {
+                                $('#table_permintaan').DataTable().ajax.reload(null, false);
+                                alert(res.message);
+                            } else {
+                                alert(res.message);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert('Terjadi kesalahan: ' + xhr.responseText);
+                        }
+                    });
+                }
+            });
+
         });
     </script>
 @endpush

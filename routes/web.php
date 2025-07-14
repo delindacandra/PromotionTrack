@@ -65,6 +65,8 @@ Route::group(['middleware' => ['ceklevel:1,2']], function () {
         Route::get('/riwayat', [PermintaanController::class, 'riwayat'])->middleware('privilege:permintaan,riwayat');
         Route::get('/riwayat', [PermintaanController::class, 'riwayat'])->middleware('privilege:permintaan,riwayat');
         Route::post('/riwayat_list', [PermintaanController::class, 'riwayat_list'])->middleware('privilege:permintaan,list');
+        Route::post('/{id}/setuju', [PermintaanController::class, 'setuju']);
+        Route::post('/{id}/tolak', [PermintaanController::class, 'tolak']);
     });
 });
 

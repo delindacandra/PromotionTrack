@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TolakPermintaanMail;
 use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 use App\Models\DetailBarangKeluarModel;
@@ -11,6 +12,7 @@ use App\Models\SkalaKegiatanModel;
 use App\Models\UsersModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class PermintaanController extends Controller
@@ -29,7 +31,13 @@ class PermintaanController extends Controller
     public function list(Request $request)
     {
         $permintaan = PermintaanModel::with('users.fungsi', 'skala')
-            ->where('status', '!=', 'selesai')
+            ->whereNotIn('status', ['selesai', 'ditolak'])
+            ->when(auth()->user()->level->nama_level === 'Admin', function ($query) {
+                $query->where(function ($subQuery) {
+                    $subQuery->where('id_skala', 2)
+                        ->orWhere('status', 'diproses');
+                });
+            })
             ->orderBy('created_at', 'desc');
 
         if ($request->filter_skala) {
@@ -40,14 +48,28 @@ class PermintaanController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) {
                 $btn = '';
+
+                if ($row->status === 'diajukan') {
+                    if ($row->id_skala == 2) {
+                        if (userHasAccess('permintaan', 'proses')) {
+                            $btn .= '<a href="' . url('/permintaan/' . $row->id_permintaan . '/proses') . '" class="btn btn-warning btn-sm me-1">Proses</a>';
+                        }
+                    } else {
+                        $btn .= '<button class="btn btn-success btn-sm me-1 btn-setuju" data-id="' . $row->id_permintaan . '">Setuju</button>';
+                        $btn .= '<button class="btn btn-danger btn-sm me-1 btn-tolak" data-id="' . $row->id_permintaan . '">Tolak</button>';
+                    }
+                } elseif ($row->status === 'diproses') {
+                    if (userHasAccess('permintaan', 'proses')) {
+                        $btn .= '<a href="' . url('/permintaan/' . $row->id_permintaan . '/proses') . '" class="btn btn-warning btn-sm me-1">Proses</a>';
+                    }
+                } elseif ($row->status === 'selesai') {
+                    $btn .= '<button class="btn btn-success btn-sm me-1" disabled>Selesai</button>';
+                }
+
                 if (userHasAccess('permintaan', 'show')) {
                     $btn .= '<a href="' . url('/permintaan/' . $row->id_permintaan . '/detail') . '" class="btn btn-info btn-sm me-1">Detail</a>';
                 }
-                if ($row->status === 'selesai') {
-                    $btn .= '<button class="btn btn-success btn-sm me-1" disabled>Selesai</button>';
-                } elseif (userHasAccess('permintaan', 'proses')) {
-                    $btn .= '<a href="' . url('/permintaan/' . $row->id_permintaan . '/proses') . '" class="btn btn-warning btn-sm me-1">Proses</a>';
-                }
+
                 if (userHasAccess('permintaan', 'destroy')) {
                     $btn .= '<form class="d-inline-block" method="POST" action="' . url('/permintaan/' . $row->id_permintaan) . '">'
                         . csrf_field() . method_field('DELETE') .
@@ -78,7 +100,7 @@ class PermintaanController extends Controller
 
     public function proses($id)
     {
-        $barang = BarangModel::all();
+        $barang = BarangModel::orderBy('nama_barang', 'asc')->get();
         $permintaan = PermintaanModel::with('users', 'skala')->findOrFail($id);
 
         $breadcrumb = (object)[
@@ -102,12 +124,13 @@ class PermintaanController extends Controller
         $info_email = explode('@', $email)[0];
         $createdby = "{$name}|{$info_email}";
 
-        $permintaan = PermintaanModel::with('users.fungsi', 'skala')->findOrFail($request->id_permintaan);
+        $permintaan = PermintaanModel::with('users.fungsi', 'users.sales_area', 'skala')->findOrFail($request->id_permintaan);
         $barangKeluar = BarangKeluarModel::create([
             'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
             'keterangan' => $permintaan->keterangan,
             'keperluan' => $permintaan->keperluan,
             'id_fungsi' => $permintaan->users->fungsi->id_fungsi,
+            'id_sa' => $permintaan->users->sales_area->id_sa,
             'createdby' => $createdby,
         ]);
 
@@ -175,4 +198,44 @@ class PermintaanController extends Controller
             ->rawColumns(['dokumen', 'status'])
             ->make(true);
     }
+
+    public function setuju($id)
+    {
+        $permintaan = PermintaanModel::findOrFail($id);
+        if ($permintaan->status === 'diajukan') {
+            $permintaan->status = 'diproses';
+            $permintaan->save();
+            return response()->json(['success' => true, 'message' => 'Permintaan disetujui.']);
+        }
+        return response()->json(['success' => false, 'message' => 'Aksi tidak valid.']);
+    }
+
+    public function tolak(Request $request, $id)
+    {
+        $permintaan = PermintaanModel::with('users.fungsi', 'users.sales_area')->findOrFail($id);
+        $permintaan->status = 'ditolak';
+        $permintaan->save();
+
+        if ($permintaan->users && $permintaan->users->email) {
+            $fungsi = $permintaan->users->fungsi->nama_fungsi ?? 'Fungsi Tidak Diketahui';
+            $SA = $permintaan->users->sales_area->nama_sa ?? 'Wilayah Tidak Diketahui';
+
+            Mail::to($permintaan->users->email)->send(new TolakPermintaanMail($fungsi, $SA));
+        }
+
+        return response()->json(['message' => 'Permintaan ditolak dan email telah dikirim.']);
+    }
+
+
+
+
+    // public function daftarDokumen()
+    // {
+    //     $breadcrumb = (object)[
+    //         'title' => 'Dokumen Pengajuan Barang Promosi',
+    //         'list' => ['Daftar Dokumen']
+    //     ];
+    //     $permintaans = PermintaanModel::whereNotNull('dokumen')->with('users.fungsi', 'skala')->latest()->get();
+    //     return view('permintaan.dokumen', compact('permintaans', 'breadcrumb'));
+    // }
 }
