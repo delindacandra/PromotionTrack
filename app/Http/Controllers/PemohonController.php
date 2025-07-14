@@ -14,7 +14,7 @@ class PemohonController extends Controller
     public function index()
     {
         $breadcrumb = (object)[
-            'title' => '',
+            'title' => 'Ajukan Permintaan Barang Promosi',
             'list' => ['Beranda']
         ];
         return view('pemohon.index', ['breadcrumb' => $breadcrumb]);
@@ -31,13 +31,17 @@ class PemohonController extends Controller
         $skala = SkalaKegiatanModel::all();
         $fungsi = $user->fungsi->nama_fungsi ?? '-';
         $sales_area = $user->sales_area->nama_sa ?? '-';
+        $id_fungsi = $user->id_fungsi;
+        $id_sa = $user->id_sa;
 
-        return view('permintaan.create', ['breadcrumb' => $breadcrumb, 'sales_area' => $sales_area, 'fungsi' => $fungsi, 'skala' => $skala]);
+        return view('permintaan.create', ['breadcrumb' => $breadcrumb, 'sales_area' => $sales_area, 'fungsi' => $fungsi, 'skala' => $skala, 'id_fungsi' => $id_fungsi, 'id_sa' => $id_sa]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
+            'id_fungsi' => 'required',
+            'id_sa' => 'required',
             'id_skala' => 'required',
             'jumlah' => 'required|integer|min:1',
             'keperluan' => 'required',
@@ -48,6 +52,8 @@ class PemohonController extends Controller
 
         PermintaanModel::create([
             'id_users' => Auth::id(),
+            'id_fungsi' => $request->id_fungsi,
+            'id_sa' => $request->id_sa,
             'id_skala' => $request->id_skala,
             'jumlah' => $request->jumlah,
             'keperluan' => $request->keperluan,
