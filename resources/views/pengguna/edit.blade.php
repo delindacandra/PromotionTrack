@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-5">
                         <label for="level" class="form-label">Level</label>
-                        <select class="form-select" id="level" name="level">
+                        <select class="form-select" id="level" name="level" required>
                             <option value="">- Pilih level -</option>
                             @foreach ($level as $i)
                                 <option value="{{ $i->id_level }}"
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-5">
                         <label for="sa" class="form-label">Sales Area</label>
-                        <select class="form-select" id="sa" name="sa">
+                        <select class="form-select" id="sa" name="sa" required>
                             <option valuef="">- Pilih sa -</option>
                             @foreach ($sa as $i)
                                 <option value="{{ $i->id_sa }}"
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-5">
                         <label for="fungsi" class="form-label">Fungsi</label>
-                        <select class="form-select" id="fungsi" name="fungsi">
+                        <select class="form-select" id="fungsi" name="fungsi" required>
                             <option value="">- Pilih fungsi -</option>
                             @foreach ($fungsi as $i)
                                 <option value="{{ $i->id_fungsi }}"
@@ -46,7 +46,7 @@
                     <div>
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control  @error('email') is-invalid @enderror" id="email"
-                            name="email" value="{{ old('email', $users->email) }}" />
+                            name="email" value="{{ old('email', $users->email) }}" required/>
                         @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -56,7 +56,7 @@
                         <div class="input-group">
                             <input type="password" id="password" name="password"
                                 class="form-control @error('password') is-invalid @enderror"
-                                placeholder="masukkan password baru">
+                                placeholder="masukkan password baru" required/>
                             <button class="btn btn-outline-secondary" type="button" id="togglePassword"
                                 style="cursor: pointer;">
                                 <i class="bi bi-eye-slash" id="iconToggle"></i>

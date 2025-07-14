@@ -42,11 +42,12 @@
             let useRole = "{{ Auth::user()->id_level }}";
             let ajaxUrl = "";
 
-            if (useRole == 1,2) {
+            if (useRole == 1 || useRole == 2) {
                 ajaxUrl = "{{ url('permintaan/riwayat_list') }}";
             } else {
                 ajaxUrl = "{{ url('pemohon/riwayat_list') }}";
             }
+
 
             var dataRiwayat = $('#table_riwayat').DataTable({
                 serverSide: true,

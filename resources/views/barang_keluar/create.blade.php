@@ -60,7 +60,7 @@
                 <div class="col-12 col-lg-6">
                     <div class="card card-primary card-outline mb-4">
                         <div class="card-header">
-                            <h5 class="text-center fw-bold mb-0">Form Barang Keluar</h5>
+                            <div class="card-title">Form Barang Keluar</div>
                         </div>
                         <div class="card-body">
                             <form id="form_barangKeluar" method="POST" action="{{ url('barang_keluar') }}">

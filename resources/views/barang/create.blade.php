@@ -10,7 +10,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="nama_barang" class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" id="nama_barang" name="nama_barang" />
+                    <input type="text" class="form-control" id="nama_barang" name="nama_barang" required/>
                 </div>
                 <div class="col-9">
                     <label for="vendor" class="form-label">Vendor</label>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="jumlah" class="form-label">Jumlah</label>
-                    <input type="number" class="form-control" id="jumlah" min="0" name="jumlah" />
+                    <input type="number" class="form-control" id="jumlah" min="0" name="jumlah" required/>
                 </div>
 
                 <div class="mt-4 d-flex justify-content-start gap-2">

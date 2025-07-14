@@ -59,7 +59,7 @@
                 <div class="col-12 col-lg-6">
                     <div class="card card-primary card-outline mb-4">
                         <div class="card-header">
-                            <h5 class="text-center fw-bold mb-0">Form Permintaan Barang</h5>
+                            <div class="card-title">Form Permintaan Barang</div>
                         </div>
                         <div class="card-body">
                             <div class="mb-3">
@@ -99,7 +99,7 @@
                                     <div class="mb-3">
                                         <label for="tanggal_barangKeluar" class="form-label">Tanggal Barang Keluar</label>
                                         <input type="date" class="form-control" id="tanggal_barangKeluar"
-                                            name="tanggal_barangKeluar" />
+                                            name="tanggal_barangKeluar" required />
                                     </div>
                                     <div class="mt-4 d-flex justify-content-start gap-2">
                                         <button type="submit" class="btn btn-primary">

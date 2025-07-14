@@ -15,7 +15,7 @@
                     <div class="col-12 col-md-6 mb-3">
                         <label for="nama_barang" class="form-label">Nama Barang</label>
                         <input type="text" class="form-control" id="nama_barang" name="nama_barang"
-                            value="{{ old('nama_barang', $barang->nama_barang) }}">
+                            value="{{ old('nama_barang', $barang->nama_barang) }}" required>
                     </div>
 
                     <div class="col-12 col-md-6 mb-3">
@@ -48,7 +48,7 @@
                     <div class="col-12 col-md-6 mb-3">
                         <label for="jumlah" class="form-label">Jumlah</label>
                         <input type="number" class="form-control" id="jumlah" min="0" name="jumlah"
-                            value="{{ old('jumlah', $barang->stok->jumlah ?? 0) }}">
+                            value="{{ old('jumlah', $barang->stok->jumlah ?? 0) }}" required>
                     </div>
                 </div>
 
