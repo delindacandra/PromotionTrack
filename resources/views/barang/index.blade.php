@@ -121,6 +121,7 @@
         /* Efek hover untuk desktop */
         @media (hover: hover) {
             .zoomable:hover {
+                z-index: 10000;
                 transform: scale(5);
             }
         }
@@ -128,6 +129,7 @@
         /* Efek klik untuk mobile */
         @media (hover: none) {
             .zoomable.clicked {
+                z-index: 10000;
                 transform: scale(5);
             }
         }

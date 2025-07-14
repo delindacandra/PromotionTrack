@@ -37,7 +37,7 @@
                                                 <td>{{ $barang->nama_barang }}</td>
                                                 <td>{{ optional($barang->stok)->jumlah ?? 0 }}</td>
                                                 <td><img src="{{ asset('storage/' . $barang->gambar) }}" alt="Gambar"
-                                                        height="40px"></td>
+                                                        height="40px" class="zoomable"></td>
                                                 <td>
                                                     <button type="button"
                                                         class="btn btn-outline-danger btn-sm tambah-barang"
@@ -220,4 +220,30 @@
 
         });
     </script>
+@endpush
+@push('css')
+    <style>
+        .zoomable {
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+            z-index: 1000;
+            position: relative;
+        }
+
+        /* Efek hover untuk desktop */
+        @media (hover: hover) {
+            .zoomable:hover {
+                z-index: 10000;
+                transform: scale(5);
+            }
+        }
+
+        /* Efek klik untuk mobile */
+        @media (hover: none) {
+            .zoomable.clicked {
+                z-index: 10000;
+                transform: scale(5);
+            }
+        }
+    </style>
 @endpush

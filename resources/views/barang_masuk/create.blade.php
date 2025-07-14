@@ -39,7 +39,7 @@
                                                 <td>{{ optional($barang->stok)->jumlah ?? 0 }}</td>
                                                 <td>
                                                     <img src="{{ asset('storage/' . $barang->gambar) }}" alt="Gambar"
-                                                        height="40px">
+                                                        height="40px" class="zoomable">
                                                 </td>
                                                 <td>
                                                     <button type="button"
@@ -87,12 +87,12 @@
 
                                 <div class="mb-3 mt-3">
                                     <label for="keterangan" class="form-label">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan" />
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan" required />
                                 </div>
                                 <div class="mb-3">
                                     <label for="tanggal_barangMasuk" class="form-label">Tanggal Barang Masuk</label>
                                     <input type="date" class="form-control" id="tanggal_barangMasuk"
-                                        name="tanggal_barangMasuk" />
+                                        name="tanggal_barangMasuk" required />
                                 </div>
 
                                 <div class="mt-4 d-flex justify-content-start gap-2">
@@ -179,6 +179,57 @@
                 });
                 $('#items').val(JSON.stringify(items));
             }
+
+            $('#form_barangMasuk').on('submit', function(e) {
+                let valid = true;
+                $('#table-barangMasuk tbody tr').each(function() {
+                    let stok = parseInt($(this).find('.stok').text());
+                    let jumlah = parseInt($(this).find('input.jumlah').val());
+
+                    if (jumlah > stok) {
+                        alert('Terdapat jumlah barang yang melebihi stok!');
+                        valid = false;
+                        return false;
+                    }
+                });
+
+                if ($('#table-barangMasuk tbody tr').length === 0) {
+                    alert('Silakan pilih setidaknya satu barang.');
+                    e.preventDefault();
+                    return;
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                }
+            });
         });
     </script>
+@endpush
+
+@push('css')
+    <style>
+        .zoomable {
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+            z-index: 1000;
+            position: relative;
+        }
+
+        /* Efek hover untuk desktop */
+        @media (hover: hover) {
+            .zoomable:hover {
+                z-index: 10000;
+                transform: scale(5);
+            }
+        }
+
+        /* Efek klik untuk mobile */
+        @media (hover: none) {
+            .zoomable.clicked {
+                z-index: 10000;
+                transform: scale(5);
+            }
+        }
+    </style>
 @endpush
