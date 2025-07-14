@@ -11,7 +11,7 @@ class PermintaanModel extends Model
     use HasFactory;
     protected $table = 'permintaan';
     protected $primaryKey = 'id_permintaan';
-    protected $fillable = ['id_users', 'id_skala', 'tanggal_diperlukan', 'jumlah', 'keperluan', 'keterangan', 'dokumen', 'status', 'createdby', 'editedby', 'deletedby'];
+    protected $fillable = ['id_users', 'id_fungsi', 'id_sa', 'id_skala', 'tanggal_diperlukan', 'jumlah', 'keperluan', 'keterangan', 'dokumen', 'status', 'createdby', 'editedby', 'deletedby'];
     protected $casts = [
         'tanggal_diperlukan' => 'datetime',
     ];
@@ -24,4 +24,5 @@ class PermintaanModel extends Model
     {
         return $this->belongsTo(SkalaKegiatanModel::class, 'id_skala', 'id_skala');
     }
+    
 }

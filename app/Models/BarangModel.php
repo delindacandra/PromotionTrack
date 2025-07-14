@@ -18,4 +18,7 @@ class BarangModel extends Model
     public function vendor(){
         return $this->belongsTo(VendorModel::class, 'id_vendor', 'id_vendor');
     }
+    public function detailBarangKeluar(){
+        return $this->hasMany(DetailBarangKeluarModel::class, 'id_barang', 'id_barang');
+    }
 }
