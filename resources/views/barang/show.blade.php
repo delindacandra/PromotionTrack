@@ -47,7 +47,7 @@
             @endempty
         </div>
         <div class="me-3 mb-3">
-            <a class="btn btn-outline-primary float-end" href="{{ url('barang_keluar') }}">
+            <a class="btn btn-outline-primary float-end" href="{{ url('barang') }}">
                 <i class="bi bi-arrow-left me-1"></i> Kembali
             </a>
         </div>
