@@ -181,18 +181,6 @@
             }
 
             $('#form_barangMasuk').on('submit', function(e) {
-                let valid = true;
-                $('#table-barangMasuk tbody tr').each(function() {
-                    let stok = parseInt($(this).find('.stok').text());
-                    let jumlah = parseInt($(this).find('input.jumlah').val());
-
-                    if (jumlah > stok) {
-                        alert('Terdapat jumlah barang yang melebihi stok!');
-                        valid = false;
-                        return false;
-                    }
-                });
-
                 if ($('#table-barangMasuk tbody tr').length === 0) {
                     alert('Silakan pilih setidaknya satu barang.');
                     e.preventDefault();
