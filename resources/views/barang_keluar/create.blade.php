@@ -93,6 +93,16 @@
                                     </select>
                                 </div>
 
+                                <div class="col-9">
+                                    <label for="id_sa" class="form-label">Sales Area</label>
+                                    <select class="form-control" id="id_sa" name="id_sa" required>
+                                        <option value="">- Pilih SA -</option>
+                                        @foreach ($sa as $i)
+                                            <option value="{{ $i->id_sa }}">{{ $i->nama_sa }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="mb-3 mt-3">
                                     <label for="keperluan" class="form-label">Keperluan</label>
                                     <input type="text" class="form-control" id="keperluan" name="keperluan" required />

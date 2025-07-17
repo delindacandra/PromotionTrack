@@ -6,6 +6,7 @@ use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 use App\Models\DetailBarangKeluarModel;
 use App\Models\FungsiModel;
+use App\Models\SAModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -70,7 +71,8 @@ class BarangKeluarController extends Controller
         ];
         $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
         $fungsi = FungsiModel::all();
-        return view('barang_keluar.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang, 'fungsi' => $fungsi]);
+        $sa = SAModel::all();
+        return view('barang_keluar.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang, 'fungsi' => $fungsi, 'sa' => $sa]);
     }
 
     public function store(Request $request)
@@ -78,6 +80,7 @@ class BarangKeluarController extends Controller
         $request->validate([
             'items' => 'required|string',
             'id_fungsi' => 'required|integer',
+            'id_sa' => 'required|integer',
             'keperluan' => 'required|string',
             'keterangan' => 'required|string',
             'tanggal_barangKeluar' => 'required|date'
@@ -95,6 +98,7 @@ class BarangKeluarController extends Controller
             'keterangan' => $request->keterangan,
             'keperluan' => $request->keperluan,
             'id_fungsi' => $request->id_fungsi,
+            'id_sa' => $request->id_sa,
             'createdby' => $createdby,
         ]);
 
