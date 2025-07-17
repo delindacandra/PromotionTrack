@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -23,19 +22,19 @@ class DetailBarangKeluarSeeder extends Seeder
             [
                 'id_detailBarangKeluar' => 2,
                 'id_barangKeluar' => 2,
-                'id_barang' => 4,
+                'id_barang' => 3,
                 'jumlah'  => 10
             ],
             [
                 'id_detailBarangKeluar' => 3,
                 'id_barangKeluar' => 3,
-                'id_barang' => 2,
+                'id_barang' => 4,
                 'jumlah'  => 10
             ],
             [
                 'id_detailBarangKeluar' => 4,
                 'id_barangKeluar' => 4,
-                'id_barang' => 3,
+                'id_barang' => 5,
                 'jumlah'  => 10
             ],
         ];

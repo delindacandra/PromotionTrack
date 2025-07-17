@@ -20,7 +20,7 @@ class UsersSeeder extends Seeder
                 'id_level' => 1,
                 'id_sa' => 1,
                 'id_fungsi' => 4,
-                'email' => 'adminprotrack@gmail.com',
+                'email' => 'ccmsjatimbalinus@gmail.com',
                 'password' => Hash::make(env('ADMIN_PASSWORD', 'defaultpass')),
             ],
             [
@@ -28,7 +28,7 @@ class UsersSeeder extends Seeder
                 'id_level' => 2,
                 'id_sa' => 1,
                 'id_fungsi' => 4,
-                'email' => 'picprotrack@gmail.com',
+                'email' => 'ccmsjatimbalinus@gmail.com',
                 'password' => Hash::make(env('PIC_PASSWORD', 'defaultpass')),
             ],
         ];
