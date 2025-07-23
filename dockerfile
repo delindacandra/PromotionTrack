@@ -14,12 +14,19 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
-# DocumentRoot ke folder Laravel 'public'
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+# Salin konfigurasi Apache custom setelah project Laravel
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Tambahkan konfigurasi supaya .htaccess aktif
+RUN echo '<Directory /var/www/html/public>\n\
+    AllowOverride All\n\
+    Require all granted\n\
+</Directory>' >> /etc/apache2/apache2.conf
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage
+    && chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 755 /var/www/html/public
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
