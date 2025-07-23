@@ -10,6 +10,9 @@ use App\Http\Controllers\PemohonController;
 use App\Http\Controllers\PermintaanController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login_process', [AuthController::class, 'login_process']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
