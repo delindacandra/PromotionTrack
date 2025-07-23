@@ -14,6 +14,9 @@ WORKDIR /var/www/html
 # Copy project files
 COPY . .
 
+# DocumentRoot ke folder Laravel 'public'
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage
@@ -21,9 +24,10 @@ RUN chown -R www-data:www-data /var/www/html \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Install dependencies
 RUN composer install --optimize-autoloader --no-dev
 
 EXPOSE 80
 
-# Run Apache
+# Jalankan Apache
 CMD ["apache2-foreground"]
