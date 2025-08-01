@@ -26,7 +26,7 @@ class BarangKeluarController extends Controller
 
     public function list(Request $request)
     {
-        $barangKeluar = DetailBarangKeluarModel::with('barang_keluar', 'barang')->orderByDesc('id_barangKeluar');
+        $barangKeluar = DetailBarangKeluarModel::with('barang_keluar', 'barang_keluar.fungsi', 'barang')->orderByDesc('id_barangKeluar');
 
         if ($request->has('start_date') && $request->start_date) {
             $barangKeluar->whereHas('barang_keluar', function ($query) use ($request) {
@@ -88,6 +88,16 @@ class BarangKeluarController extends Controller
 
         $items = json_decode($request->items, true);
 
+        // Validasi stok sebelum menyimpan data
+        foreach ($items as $item) {
+            $barang = BarangModel::find($item['id_barang']);
+            if (!$barang || !$barang->stok || $barang->stok->jumlah < $item['jumlah']) {
+                return redirect()->back()->withInput()->withErrors([
+                    'items' => 'Stok barang tidak mencukupi untuk barang: ' . ($barang->nama_barang ?? 'Tidak Diketahui')
+                ]);
+            }
+        }
+
         $name = session('name');
         $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
         $info_email = explode('@', $email)[0];
@@ -109,14 +119,17 @@ class BarangKeluarController extends Controller
                 'jumlah' => $item['jumlah'],
                 'createdby' => $createdby,
             ]);
+
             $barang = BarangModel::find($item['id_barang']);
             if ($barang && $barang->stok) {
                 $barang->stok->jumlah = (int)$barang->stok->jumlah - (int)$item['jumlah'];
                 $barang->stok->save();
             }
         }
+
         return redirect('/barang_keluar')->with('success', 'Data berhasil ditambahkan');
     }
+
 
     public function show(string $id)
     {
@@ -223,7 +236,9 @@ class BarangKeluarController extends Controller
     public function cetak($id)
     {
         $barangKeluar = BarangKeluarModel::with([
-            'detailBarangKeluar', 'fungsi', 'sales_area'
+            'detailBarangKeluar',
+            'fungsi',
+            'sales_area'
         ])->findOrFail($id);
 
         $pdf = PDF::loadView('barang_keluar.tanda_terima', compact('barangKeluar'));
