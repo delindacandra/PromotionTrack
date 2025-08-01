@@ -56,16 +56,16 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/09/19',
                 'keperluan' => '-',
-                'keterangan' => '',
+                'keterangan' => 'Mandalika',
                 'id_permintaan' => null
             ],
             [
                 'id_barangKeluar' => 6,
-                'id_fungsi' => 4,
+                'id_fungsi' => 13,
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/09/19',
                 'keperluan' => '-',
-                'keterangan' => 'Mandalika',
+                'keterangan' => 'Comrel',
                 'id_permintaan' => null
             ],
             [
@@ -74,7 +74,7 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/09/19',
                 'keperluan' => '-',
-                'keterangan' => 'Comrel',
+                'keterangan' => 'CS Retail Sales',
                 'id_permintaan' => null
             ],
             [
@@ -83,7 +83,7 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/09/25',
                 'keperluan' => '-',
-                'keterangan' => 'CS Retail Sales',
+                'keterangan' => 'SBM Fuel 1 Surabaya',
                 'id_permintaan' => null
             ],
             [
@@ -92,7 +92,7 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/03',
                 'keperluan' => '-',
-                'keterangan' => 'SBM Fuel 1 Surabaya',
+                'keterangan' => 'Untuk Pak GM',
                 'id_permintaan' => null
             ],
             [
@@ -101,16 +101,16 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/07',
                 'keperluan' => '-',
-                'keterangan' => 'Untuk Pak GM',
+                'keterangan' => 'Untuk Pejabat BPJS',
                 'id_permintaan' => null
             ],
             [
                 'id_barangKeluar' => 11,
-                'id_fungsi' => 4,
+                'id_fungsi' => 11,
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/11',
                 'keperluan' => '-',
-                'keterangan' => 'Untuk Pejabat BPJS',
+                'keterangan' => 'Kepentingan HC',
                 'id_permintaan' => null
             ], 
             [
@@ -119,7 +119,7 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/12',
                 'keperluan' => '-',
-                'keterangan' => 'Kepentingan HC',
+                'keterangan' => 'Open booth Inmar - vasa hotel',
                 'id_permintaan' => null
             ],
             [
@@ -128,12 +128,12 @@ class BarangKeluarSeeder extends Seeder
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/12',
                 'keperluan' => '-',
-                'keterangan' => 'Open booth',
+                'keterangan' => 'Open booth delta plaza',
                 'id_permintaan' => null
             ], 
             [
                 'id_barangKeluar' => 14,
-                'id_fungsi' => 4,
+                'id_fungsi' => 10,
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/14',
                 'keperluan' => '-',
@@ -142,7 +142,7 @@ class BarangKeluarSeeder extends Seeder
             ],
             [
                 'id_barangKeluar' => 15,
-                'id_fungsi' => 4,
+                'id_fungsi' => 2,
                 'id_sa' => 2,
                 'tanggal_barangKeluar' => '2024/10/14',
                 'keperluan' => '-',
@@ -169,7 +169,7 @@ class BarangKeluarSeeder extends Seeder
             ],
             [
                 'id_barangKeluar' => 18,
-                'id_fungsi' => 4,
+                'id_fungsi' => 13,
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/29',
                 'keperluan' => '-',
@@ -178,7 +178,7 @@ class BarangKeluarSeeder extends Seeder
             ], 
             [
                 'id_barangKeluar' => 19,
-                'id_fungsi' => 4,
+                'id_fungsi' => 13,
                 'id_sa' => 1,
                 'tanggal_barangKeluar' => '2024/10/30',
                 'keperluan' => '-',
@@ -301,7 +301,161 @@ class BarangKeluarSeeder extends Seeder
                 'keperluan' => '-',
                 'keterangan' => 'Acara sosialisasi bersama peternakan tuban',
                 'id_permintaan' => null
-            ]
+            ], 
+            // =====
+            [
+                'id_barangKeluar' => 33,
+                'id_fungsi' => 13,
+                'id_sa' => 6,
+                'tanggal_barangKeluar' => '2024/12/17',
+                'keperluan' => '-',
+                'keterangan' => 'Support kegiatan comrell di kupang NTT',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 34,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2024/12/18',
+                'keperluan' => '-',
+                'keterangan' => 'Satgas natu 2024',
+                'id_permintaan' => null
+            ], 
+            [
+                'id_barangKeluar' => 35,
+                'id_fungsi' => 4,
+                'id_sa' => 4,
+                'tanggal_barangKeluar' => '2024/12/22',
+                'keperluan' => '-',
+                'keterangan' => 'Satgas natu 2024',
+                'id_permintaan' => null
+            ], 
+            [
+                'id_barangKeluar' => 36,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2024/12/22',
+                'keperluan' => '-',
+                'keterangan' => 'Kepada SBM Imam Bukhori untuk Satgas Naru 2024',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 37,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2024/12/22',
+                'keperluan' => '-',
+                'keterangan' => 'Satgas Naru 2024',
+                'id_permintaan' => null
+            ], 
+            [
+                'id_barangKeluar' => 38,
+                'id_fungsi' => 4,
+                'id_sa' => 2,
+                'tanggal_barangKeluar' => '2024/12/22',
+                'keperluan' => '-',
+                'keterangan' => 'Kepada SBM Banyuwangi - Salman untuk Satgas Naru 2024',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 39,
+                'id_fungsi' => 4,
+                'id_sa' => 3,
+                'tanggal_barangKeluar' => '2024/12/26',
+                'keperluan' => '-',
+                'keterangan' => 'Kepada SBM Madiun - Tsaqif Untuk Satgas Naru 2024',
+                'id_permintaan' => null
+            ], 
+            [
+                'id_barangKeluar' => 40,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2024/12/26',
+                'keperluan' => '-',
+                'keterangan' => 'Satgas Naru 2024 - Kunjungan direktur pemasaran',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 41,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2024/12/31',
+                'keperluan' => '-',
+                'keterangan' => 'Support acara agen NPSO di DBL - Angga Dexora',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 42,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/01/02',
+                'keperluan' => '-',
+                'keterangan' => 'Bagi-bagi merchandise',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 43,
+                'id_fungsi' => 12,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/01/08',
+                'keperluan' => '-',
+                'keterangan' => 'Support acara di Bali',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 44,
+                'id_fungsi' => 7,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/01/09',
+                'keperluan' => '-',
+                'keterangan' => 'Support acara HSSE',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 45,
+                'id_fungsi' => 4,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/01/18',
+                'keperluan' => '-',
+                'keterangan' => 'Proliga Malang',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 46,
+                'id_fungsi' => 7,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/01/30',
+                'keperluan' => '-',
+                'keterangan' => 'Support acara pelatihan K3 HSSE',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 47,
+                'id_fungsi' => 5,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/02/03',
+                'keperluan' => '-',
+                'keterangan' => 'Support kegiatan fungsi S&D',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 48,
+                'id_fungsi' => 4,
+                'id_sa' => 5,
+                'tanggal_barangKeluar' => '2025/02/06',
+                'keperluan' => '-',
+                'keterangan' => 'Support kegiatan kerjasama SA NTB - Jorgix dengan eksternal',
+                'id_permintaan' => null
+            ],
+            [
+                'id_barangKeluar' => 49,
+                'id_fungsi' => 9,
+                'id_sa' => 1,
+                'tanggal_barangKeluar' => '2025/02/13',
+                'keperluan' => '-',
+                'keterangan' => 'HUT PPN 2025',
+                'id_permintaan' => null
+            ],
         ];
         DB::table('barang_keluar')->insert($data);
     }

@@ -51,7 +51,7 @@ class BarangMasukSeeder extends Seeder
             ],
             [
                 'id_barangMasuk' => 8,
-                'tanggal_barangMasuk' => '2024/10/03',
+                'tanggal_barangMasuk' => '2024/10/11',
                 'keterangan' => 'Tambah stok'
             ],
             [

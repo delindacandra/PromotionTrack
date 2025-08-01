@@ -32,27 +32,27 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 4,
                 'id_barang' => 4,
-                'jumlah' => 370
+                'jumlah' => 320
             ],
             [
                 'id_stok' => 5,
                 'id_barang' => 5,
-                'jumlah' => 290,
+                'jumlah' => 275,
             ], 
             [
                 'id_stok' => 6,
                 'id_barang' => 6,
-                'jumlah' => 225,
+                'jumlah' => 180,
             ],
             [
                 'id_stok' => 7,
                 'id_barang' => 7,
-                'jumlah' => 180,
+                'jumlah' => 135,
             ],
             [
                 'id_stok' => 8,
                 'id_barang' => 8,
-                'jumlah' => 335,
+                'jumlah' => 290,
             ],
             [
                 'id_stok' => 9,
@@ -62,7 +62,7 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 10,
                 'id_barang' => 10,
-                'jumlah' => 120,
+                'jumlah' => 100,
             ],
             [
                 'id_stok' => 11,
@@ -72,17 +72,17 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 12,
                 'id_barang' => 12,
-                'jumlah' => 268,
+                'jumlah' => 238,
             ],
             [
                 'id_stok' => 13,
                 'id_barang' => 13,
-                'jumlah' => 131,
+                'jumlah' => 110,
             ],
             [
                 'id_stok' => 14,
                 'id_barang' => 14,
-                'jumlah' => 30,
+                'jumlah' => 0,
             ],
             [
                 'id_stok' => 15,
@@ -92,7 +92,7 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 16,
                 'id_barang' => 16,
-                'jumlah' => 5595,
+                'jumlah' => 595,
             ],
             [
                 'id_stok' => 17,
@@ -102,22 +102,22 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 18,
                 'id_barang' => 18,
-                'jumlah' => 130,
+                'jumlah' => 129,
             ],
             [
                 'id_stok' => 19,
                 'id_barang' => 19,
-                'jumlah' => 13,
+                'jumlah' => 0,
             ],
             [
                 'id_stok' => 20,
                 'id_barang' => 20,
-                'jumlah' => 134,
+                'jumlah' => 54,
             ],
             [
                 'id_stok' => 21,
                 'id_barang' => 21,
-                'jumlah' => 194,
+                'jumlah' => 163,
             ],
             [
                 'id_stok' => 22,
@@ -127,7 +127,7 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 23,
                 'id_barang' => 23,
-                'jumlah' => 220,
+                'jumlah' => 210,
             ],
             [
                 'id_stok' => 24,
@@ -137,12 +137,12 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 25,
                 'id_barang' => 25,
-                'jumlah' => 254,
+                'jumlah' => 224,
             ],  
             [
                 'id_stok' => 26,
                 'id_barang' => 26,
-                'jumlah' => 678,
+                'jumlah' => 617,
             ],
             [
                 'id_stok' => 27,
@@ -182,12 +182,12 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 34,
                 'id_barang' => 34,
-                'jumlah' => 290,
+                'jumlah' => 275,
             ],
             [
                 'id_stok' => 35,
                 'id_barang' => 35,
-                'jumlah' => 71,
+                'jumlah' => 65,
             ],
             [
                 'id_stok' => 36,
@@ -202,7 +202,7 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 38,
                 'id_barang' => 38,
-                'jumlah' => 415,
+                'jumlah' => 395,
             ],
             [
                 'id_stok' => 39,
@@ -222,12 +222,12 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 42,
                 'id_barang' => 42,
-                'jumlah' => 50,
+                'jumlah' => 0,
             ],
             [
                 'id_stok' => 43,
                 'id_barang' => 43,
-                'jumlah' => 26,
+                'jumlah' => 0,
             ],
             [
                 'id_stok' => 44,
@@ -262,7 +262,67 @@ class StokSeeder extends Seeder
             [
                 'id_stok' => 50,
                 'id_barang' => 50,
-                'jumlah' => 338,
+                'jumlah' => 288,
+            ],
+            [
+                'id_stok' => 51,
+                'id_barang' => 51,
+                'jumlah' => 153,
+            ], 
+            [
+                'id_stok' => 52,
+                'id_barang' => 52,
+                'jumlah' => 0,
+            ],
+            [
+                'id_stok' => 53,
+                'id_barang' => 53,
+                'jumlah' => 0,
+            ],
+            [
+                'id_stok' => 54,
+                'id_barang' => 54,
+                'jumlah' => 0,
+            ],
+            [
+                'id_stok' => 55,
+                'id_barang' => 55,
+                'jumlah' => 261,
+            ], 
+            [
+                'id_stok' => 56,
+                'id_barang' => 56,
+                'jumlah' => 205,
+            ],
+            [
+                'id_stok' => 57,
+                'id_barang' => 57,
+                'jumlah' => 250,
+            ],
+            [
+                'id_stok' => 58,
+                'id_barang' => 58,
+                'jumlah' => 130,
+            ],
+            [
+                'id_stok' => 59,
+                'id_barang' => 59,
+                'jumlah' => 220,
+            ],
+            [
+                'id_stok' => 60,
+                'id_barang' => 60,
+                'jumlah' => 40,
+            ],
+            [
+                'id_stok' => 61,
+                'id_barang' => 61,
+                'jumlah' => 42,
+            ],
+            [
+                'id_stok' => 62,
+                'id_barang' => 62,
+                'jumlah' => 335,
             ],
         ];
         DB::table('stok')->insert($data);

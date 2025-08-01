@@ -21,14 +21,14 @@ class HakAksesSeeder extends Seeder
                 'barang' => ['index', 'list', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
                 'barang_masuk' => ['index', 'list', 'create', 'store', 'edit', 'update', 'destroy'],
                 'barang_keluar' => ['index', 'list', 'create', 'store', 'show', 'edit', 'update', 'destroy', 'cetak'],
-                'permintaan' => ['index', 'list', 'proses', 'riwayat', 'store'],
+                'permintaan' => ['index', 'list', 'proses', 'riwayat', 'store', 'show'],
             ],
             2 => [ // PIC
                 'dashboard' => ['index'],
                 'barang' => ['index', 'list', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
                 'barang_masuk' => ['index', 'list', 'create', 'store', 'edit', 'update', 'destroy'],
                 'barang_keluar' => ['index', 'list', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
-                'permintaan' => ['index', 'list', 'show', 'status', 'proses', 'riwayat'],
+                'permintaan' => ['index', 'list', 'show', 'status', 'proses', 'store', 'riwayat'],
                 'pengguna' => ['index', 'list', 'create', 'store', 'show', 'edit', 'update', 'destroy'],
             ],
             3 => [ // Pemohon

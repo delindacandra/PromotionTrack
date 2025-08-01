@@ -313,6 +313,79 @@ class DataBarangSeeder extends Seeder
                 'id_vendor' => null,
                 'gambar' => '',
             ],
+            [
+                'id_barang' => 51,
+                'nama_barang' => 'Paper Bag Kain MyPertamina',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 52,
+                'nama_barang' => 'Topi MyPertamina Merah',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 53,
+                'nama_barang' => 'Topi MyPertamina Biru',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 54,
+                'nama_barang' => 'Topi Pertamax Green',
+                'id_vendor' => null,
+                'gambar' => '',
+            ], 
+            [
+                'id_barang' => 55,
+                'nama_barang' => 'Tas Lipat Kain Bright Gas',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 56,
+                'nama_barang' => 'Kaos Pertamina Dex',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 57,
+                'nama_barang' => 'Kaos Dexlite',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 58,
+                'nama_barang' => 'Kaos Pertamax',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            
+            [
+                'id_barang' => 59,
+                'nama_barang' => 'Kaos Polo Pertamax Turbo',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 60,
+                'nama_barang' => 'Tumbler Lock & Lock Bright Gas',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 61,
+                'nama_barang' => 'Tumbler Lock & Lock MyPertamina Pink',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
+            [
+                'id_barang' => 62,
+                'nama_barang' => 'Umbul-Umbul Bright Gas',
+                'id_vendor' => null,
+                'gambar' => '',
+            ],
         ];
         DB::table('data_barang')->insert($data);
     }
