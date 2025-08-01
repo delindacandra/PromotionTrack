@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-9">
                     <label for="vendor" class="form-label">Vendor</label>
-                    <select class="form-control" id="vendor" name="vendor">
+                    <select class="form-select" id="vendor" name="vendor">
                         <option value="">- Pilih Vendor -</option>
                         @foreach ($vendor as $i)
                             <option value="{{ $i->id_vendor }}">{{ $i->nama_vendor }}</option>

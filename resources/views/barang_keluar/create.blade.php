@@ -85,7 +85,7 @@
 
                                 <div class="col-9">
                                     <label for="id_fungsi" class="form-label">Fungsi</label>
-                                    <select class="form-control" id="id_fungsi" name="id_fungsi" required>
+                                    <select class="form-select" id="id_fungsi" name="id_fungsi" required>
                                         <option value="">- Pilih Fungsi -</option>
                                         @foreach ($fungsi as $i)
                                             <option value="{{ $i->id_fungsi }}">{{ $i->nama_fungsi }}</option>
@@ -95,7 +95,7 @@
 
                                 <div class="col-9">
                                     <label for="id_sa" class="form-label">Sales Area</label>
-                                    <select class="form-control" id="id_sa" name="id_sa" required>
+                                    <select class="form-select" id="id_sa" name="id_sa" required>
                                         <option value="">- Pilih SA -</option>
                                         @foreach ($sa as $i)
                                             <option value="{{ $i->id_sa }}">{{ $i->nama_sa }}</option>
