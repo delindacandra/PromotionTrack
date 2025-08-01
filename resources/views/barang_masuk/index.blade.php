@@ -26,8 +26,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Nama Barang</th>
                                 <th>Vendor</th>
+                                <th>Nama Barang</th>
                                 <th>Jumlah</th>
                                 <th>Keterangan</th>
                                 <th>Aksi</th>
@@ -73,15 +73,15 @@
                         return `${parts[2].substring(0,2)}-${parts[1]}-${parts[0]}`;
                     }
                 }, {
-                    data: "barang.nama_barang",
-                    className: "",
-                    orderable: false,
-                    searchable: true
-                }, {
                     data: "barang.vendor.nama_vendor",
                     className: "",
                     orderable: false,
                     searchable: false
+                }, {
+                    data: "barang.nama_barang",
+                    className: "",
+                    orderable: false,
+                    searchable: true
                 }, {
                     data: "jumlah",
                     className: "",

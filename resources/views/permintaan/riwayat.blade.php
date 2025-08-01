@@ -24,6 +24,7 @@
                                 <th>Skala Kegiatan</th>
                                 <th>Jumlah</th>
                                 <th>Keperluan</th>
+                                <th>Dokumen</th>
                                 <th>Tanggal</th>
                                 <th>Status</th>
                             </tr>
@@ -88,6 +89,11 @@
                     searchable: false
                 }, {
                     data: "keperluan",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "dokumen",
                     className: "",
                     orderable: false,
                     searchable: false

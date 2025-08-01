@@ -26,9 +26,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Tanggal</th>
+                                <th>Fungsi</th>
                                 <th>Nama Barang</th>
-                                <th>Keperluan</th>
-                                <th>Jumlah</th>
                                 <th>Keterangan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -71,18 +70,13 @@
                         let parts = data.split('-');
                         return `${parts[2].substring(0,2)}-${parts[1]}-${parts[0]}`;
                     }
-                }, {
-                    data: "barang.nama_barang",
+                },{
+                    data: "barang_keluar.fungsi.nama_fungsi",
                     className: "",
                     orderable: false,
                     searchable: true
                 }, {
-                    data: "barang_keluar.keperluan",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: "jumlah",
+                    data: "barang.nama_barang",
                     className: "",
                     orderable: false,
                     searchable: false
@@ -115,9 +109,9 @@
                         if (id === last) {
                             $(rows).eq(i).find('td:eq(0)').css('display', 'none'); // No
                             $(rows).eq(i).find('td:eq(1)').css('display', 'none'); // Tanggal
-                            $(rows).eq(i).find('td:eq(3)').css('display', 'none'); // Keperluan
-                            $(rows).eq(i).find('td:eq(5)').css('display', 'none'); // Keterangan
-                            $(rows).eq(i).find('td:eq(6)').css('display', 'none'); // Aksi
+                            $(rows).eq(i).find('td:eq(2)').css('display', 'none'); // Fungsi
+                            $(rows).eq(i).find('td:eq(4)').css('display', 'none'); // Keterangan
+                            $(rows).eq(i).find('td:eq(5)').css('display', 'none'); // Aksi
                         } else {
                             var rowspanCount = api.rows(function(idx, d) {
                                 return d.id_barangKeluar === id;
@@ -127,11 +121,11 @@
                             $(rows).eq(i).find('td:eq(0)').attr('rowspan', rowspanCount);
                             $(rows).eq(i).find('td:eq(1)').attr('rowspan',
                                 rowspanCount); // Tanggal
-                            $(rows).eq(i).find('td:eq(3)').attr('rowspan',
-                                rowspanCount); // Keperluan
-                            $(rows).eq(i).find('td:eq(5)').attr('rowspan',
+                            $(rows).eq(i).find('td:eq(2)').attr('rowspan',
+                                rowspanCount); // Fungsi
+                            $(rows).eq(i).find('td:eq(4)').attr('rowspan',
                                 rowspanCount); // Keterangan
-                            $(rows).eq(i).find('td:eq(6)').attr('rowspan',
+                            $(rows).eq(i).find('td:eq(5)').attr('rowspan',
                                 rowspanCount); // Aksi
 
                             nomor++;
