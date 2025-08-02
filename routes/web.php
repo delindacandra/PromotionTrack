@@ -11,7 +11,7 @@ use App\Http\Controllers\PermintaanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('welcome');
 });
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login_process', [AuthController::class, 'login_process']);
