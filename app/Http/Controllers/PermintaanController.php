@@ -119,6 +119,16 @@ class PermintaanController extends Controller
         ]);
         $items = json_decode($request->items, true);
 
+        // Validasi stok sebelum menyimpan data
+        foreach ($items as $item) {
+            $barang = BarangModel::find($item['id_barang']);
+            if (!$barang || !$barang->stok || $barang->stok->jumlah < $item['jumlah']) {
+                return redirect()->back()->withInput()->withErrors([
+                    'items' => 'Stok barang tidak mencukupi untuk barang: ' . ($barang->nama_barang ?? 'Tidak Diketahui')
+                ]);
+            }
+        }
+        
         $name = session('name');
         $email = Auth::check() ? Auth::user()->email : 'guest@example.com';
         $info_email = explode('@', $email)[0];

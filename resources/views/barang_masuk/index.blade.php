@@ -111,7 +111,7 @@
                     api.column(1, {
                         page: 'current'
                     }).data().each(function(data, i) {
-                        var id = api.row(i).data().id_barangMasuk;
+                        var id = api.row(i).data().id_barang_masuk;
 
                         if (id === last) {
                             $(rows).eq(i).find('td:eq(0)').css('display', 'none'); // No
@@ -120,7 +120,7 @@
                             $(rows).eq(i).find('td:eq(6)').css('display', 'none'); // Aksi
                         } else {
                             var rowspanCount = api.rows(function(idx, d) {
-                                return d.id_barangMasuk === id;
+                                return d.id_barang_masuk === id;
                             }).count();
 
                             $(rows).eq(i).find('td:eq(0)').html(nomor); // No

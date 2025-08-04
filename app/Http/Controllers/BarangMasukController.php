@@ -60,7 +60,7 @@ class BarangMasukController extends Controller
             'title' => 'Tambah Barang Masuk',
             'list' => ['Barang Masuk', 'Tambah']
         ];
-        $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
+        $barang = BarangModel::with('stok')->whereNull('deletedby')->orderBy('nama_barang', 'asc')->get();
         return view('barang_masuk.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang]);
     }
 

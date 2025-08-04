@@ -69,7 +69,7 @@ class BarangKeluarController extends Controller
             'title' => 'Tambah Barang Keluar',
             'list' => ['Barang Keluar', 'Tambah']
         ];
-        $barang = BarangModel::with('stok')->orderBy('nama_barang', 'asc')->get();
+        $barang = BarangModel::with('stok')->whereNull('deletedby')->orderBy('nama_barang', 'asc')->get();
         $fungsi = FungsiModel::all();
         $sa = SAModel::all();
         return view('barang_keluar.create', ['breadcrumb' => $breadcrumb, 'barang' => $barang, 'fungsi' => $fungsi, 'sa' => $sa]);
