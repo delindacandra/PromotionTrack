@@ -26,17 +26,17 @@ class BarangKeluarController extends Controller
 
     public function list(Request $request)
     {
-        $barangKeluar = DetailBarangKeluarModel::with('barang_keluar', 'barang_keluar.fungsi', 'barang')->orderByDesc('id_barangKeluar');
+        $barangKeluar = DetailBarangKeluarModel::with('barang_keluar', 'barang_keluar.fungsi', 'barang')->orderByDesc('id_barang_keluar');
 
         if ($request->has('start_date') && $request->start_date) {
             $barangKeluar->whereHas('barang_keluar', function ($query) use ($request) {
-                $query->whereDate('tanggal_barangKeluar', '>=', $request->start_date);
+                $query->whereDate('tanggal_barang_keluar', '>=', $request->start_date);
             });
         }
 
         if ($request->has('end_date') && $request->end_date) {
             $barangKeluar->whereHas('barang_keluar', function ($query) use ($request) {
-                $query->whereDate('tanggal_barangKeluar', '<=', $request->end_date);
+                $query->whereDate('tanggal_barang_keluar', '<=', $request->end_date);
             });
         }
         return DataTables::of($barangKeluar)
@@ -44,16 +44,16 @@ class BarangKeluarController extends Controller
             ->addColumn('aksi', function ($barangKeluar) {
                 $btn = '';
                 if (userHasAccess('barang_keluar', 'cetak')) {
-                    $btn = '<a href="' . url('/barang_keluar/cetak/' . $barangKeluar->id_barangKeluar) . '" class="btn btn-success btn-sm">Cetak</a> ';
+                    $btn = '<a href="' . url('/barang_keluar/cetak/' . $barangKeluar->id_barang_keluar) . '" class="btn btn-success btn-sm">Cetak</a> ';
                 }
                 if (userHasAccess('barang_keluar', 'show')) {
-                    $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/detail') . '" class="btn btn-info btn-sm">Detail</a> ';
+                    $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barang_keluar . '/detail') . '" class="btn btn-info btn-sm">Detail</a> ';
                 }
                 if (userHasAccess('barang_keluar', 'edit')) {
-                    $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                    $btn .= '<a href="' . url('/barang_keluar/' . $barangKeluar->id_barang_keluar . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 }
                 if (userHasAccess('barang_keluar', 'destroy')) {
-                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_keluar/' . $barangKeluar->id_barangKeluar) . '">'
+                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_keluar/' . $barangKeluar->id_barang_keluar) . '">'
                         . csrf_field() . method_field('DELETE') .
                         '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 }
@@ -83,7 +83,7 @@ class BarangKeluarController extends Controller
             'id_sa' => 'required|integer',
             'keperluan' => 'required|string',
             'keterangan' => 'required|string',
-            'tanggal_barangKeluar' => 'required|date'
+            'tanggal_barang_keluar' => 'required|date'
         ]);
 
         $items = json_decode($request->items, true);
@@ -104,7 +104,7 @@ class BarangKeluarController extends Controller
         $createdby = "{$name}|{$info_email}";
 
         $barangKeluar = BarangKeluarModel::create([
-            'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
+            'tanggal_barang_keluar' => $request->tanggal_barang_keluar,
             'keterangan' => $request->keterangan,
             'keperluan' => $request->keperluan,
             'id_fungsi' => $request->id_fungsi,
@@ -114,7 +114,7 @@ class BarangKeluarController extends Controller
 
         foreach ($items as $item) {
             DetailBarangKeluarModel::create([
-                'id_barangKeluar' => $barangKeluar->id_barangKeluar,
+                'id_barang_keluar' => $barangKeluar->id_barang_keluar,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
                 'createdby' => $createdby,
@@ -139,7 +139,7 @@ class BarangKeluarController extends Controller
         ];
 
         $barangKeluar = BarangKeluarModel::with('fungsi')->find($id);
-        $detailBarangKeluar = DetailBarangKeluarModel::with('barang')->where('id_barangKeluar', $id)->get();
+        $detailBarangKeluar = DetailBarangKeluarModel::with('barang')->where('id_barang_keluar', $id)->get();
         return view('barang_keluar.show', ['breadcrumb' => $breadcrumb, 'barangKeluar' => $barangKeluar, 'detailBarangKeluar' => $detailBarangKeluar]);
     }
 
@@ -162,7 +162,7 @@ class BarangKeluarController extends Controller
             'id_fungsi' => 'required|integer',
             'keperluan' => 'required|string',
             'keterangan' => 'required|string',
-            'tanggal_barangKeluar' => 'required|date'
+            'tanggal_barang_keluar' => 'required|date'
         ]);
         $items = json_decode($request->items, true);
 
@@ -173,14 +173,14 @@ class BarangKeluarController extends Controller
 
         $barangKeluar = BarangKeluarModel::findOrFail($id);
         $barangKeluar->update([
-            'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
+            'tanggal_barang_keluar' => $request->tanggal_barang_keluar,
             'keterangan' => $request->keterangan,
             'keperluan' => $request->keperluan,
             'id_fungsi' => $request->id_fungsi,
             'editedby' => $editedby,
         ]);
 
-        $detailBarangKeluar = DetailBarangKeluarModel::where('id_barangKeluar', $id)->get();
+        $detailBarangKeluar = DetailBarangKeluarModel::where('id_barang_keluar', $id)->get();
 
         foreach ($detailBarangKeluar as $oldItem) {
             $barang = BarangModel::find($oldItem->id_barang);
@@ -190,11 +190,11 @@ class BarangKeluarController extends Controller
             }
         }
 
-        DetailBarangKeluarModel::where('id_barangKeluar', $id)->delete();
+        DetailBarangKeluarModel::where('id_barang_keluar', $id)->delete();
 
         foreach ($items as $item) {
             DetailBarangKeluarModel::create([
-                'id_barangKeluar' => $barangKeluar->id_barangKeluar,
+                'id_barang_keluar' => $barangKeluar->id_barang_keluar,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
                 'editedby' => $editedby,
@@ -216,7 +216,7 @@ class BarangKeluarController extends Controller
         }
         try {
             // Stok akan ditambah data pembaruan
-            $items = DetailBarangKeluarModel::where('id_barangKeluar', $id)->get();
+            $items = DetailBarangKeluarModel::where('id_barang_keluar', $id)->get();
 
             foreach ($items as $iten) {
                 $barang = BarangModel::find($iten->id_barang);
@@ -225,7 +225,7 @@ class BarangKeluarController extends Controller
                     $barang->stok->save();
                 }
             }
-            DetailBarangKeluarModel::where('id_barangKeluar', $id)->delete();
+            DetailBarangKeluarModel::where('id_barang_keluar', $id)->delete();
             BarangKeluarModel::destroy($id);
             return redirect('/barang_keluar')->with('success', 'Data berhasil dihapus.');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -243,7 +243,7 @@ class BarangKeluarController extends Controller
 
         $pdf = PDF::loadView('barang_keluar.tanda_terima', compact('barangKeluar'));
 
-        $filename = 'Tanda_Terima_' . Carbon::parse($barangKeluar->tanggal_barangKeluar)->format('d-m-Y') . '.pdf';
+        $filename = 'Tanda_Terima_' . Carbon::parse($barangKeluar->tanggal_barang_keluar)->format('d-m-Y') . '.pdf';
 
         return $pdf->download($filename);
         return view('barang_keluar.tanda_terima', compact('barangKeluar'));

@@ -22,7 +22,7 @@ class SlowMovingItemsChart
         $barang = BarangModel::withCount([
             'detailBarangKeluar as jumlah_keluar' => function ($query) use ($dateLimit) {
                 $query->whereHas('barang_keluar', function ($q) use ($dateLimit) {
-                    $q->where('tanggal_barangKeluar', '>=', $dateLimit);
+                    $q->where('tanggal_barang_keluar', '>=', $dateLimit);
                 });
             }
         ])

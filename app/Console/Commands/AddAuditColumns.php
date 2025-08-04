@@ -35,6 +35,10 @@ class AddAuditColumns extends Command
                 if (!Schema::hasColumn($table, 'editedby')) {
                     $tableBlueprint->string('editedby')->nullable()->after('createdby');
                 }
+                if (!Schema::hasColumn($table, 'deletedby')) {
+                    $tableBlueprint->string('deletedby')->nullable()->after('editedby');
+                }
+
             });
             $this->info("Kolom audit berhasil ditambahkan ke tabel: $table");
         }

@@ -10,8 +10,8 @@ class BarangKeluarModel extends Model
 {
     use HasFactory;
     protected $table = 'barang_keluar';
-    protected $primaryKey = 'id_barangKeluar';
-    protected $fillable = ['tanggal_barangKeluar', 'keterangan', 'keperluan', 'id_permintaan', 'id_fungsi', 'id_sa', 'createdby', 'editedby', 'deletedby'];
+    protected $primaryKey = 'id_barang_keluar';
+    protected $fillable = ['tanggal_barang_keluar', 'keterangan', 'keperluan', 'id_permintaan', 'id_fungsi', 'id_sa', 'createdby', 'editedby', 'deletedby'];
 
 
     public function permintaan():BelongsTo {
@@ -20,7 +20,7 @@ class BarangKeluarModel extends Model
 
     public function detailBarangkeluar()
     {
-        return $this->hasMany(DetailBarangKeluarModel::class, 'id_barangKeluar', 'id_barangKeluar');
+        return $this->hasMany(DetailBarangKeluarModel::class, 'id_barang_keluar', 'id_barang_keluar');
     }
 
     public function fungsi(){
@@ -31,6 +31,6 @@ class BarangKeluarModel extends Model
         return $this->belongsTo(SAModel::class, 'id_sa', 'id_sa');
     }
     protected $casts = [
-        'tanggal_barangKeluar' => 'datetime',
+        'tanggal_barang_keluar' => 'datetime',
     ];
 }

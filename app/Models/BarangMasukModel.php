@@ -9,11 +9,11 @@ class BarangMasukModel extends Model
 {
     use HasFactory;
     protected $table = 'barang_masuk';
-    protected $primaryKey = 'id_barangMasuk';
-    protected $fillable = ['tanggal_barangMasuk', 'keterangan',  'createdby', 'editedby', 'deletedby'];
+    protected $primaryKey = 'id_barang_masuk';
+    protected $fillable = ['tanggal_barang_masuk', 'keterangan',  'createdby', 'editedby', 'deletedby'];
 
     public function detailBarangMasuk()
     {
-        return $this->hasMany(DetailBarangMasukModel::class, 'id_barangMasuk', 'id_barangMasuk');
+        return $this->hasMany(DetailBarangMasukModel::class, 'id_barang_masuk', 'id_barang_masuk');
     }
 }

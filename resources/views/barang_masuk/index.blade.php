@@ -63,7 +63,7 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: "barang_masuk.tanggal_barangMasuk",
+                    data: "barang_masuk.tanggal_barang_masuk",
                     className: "",
                     orderable: false,
                     searchable: false,

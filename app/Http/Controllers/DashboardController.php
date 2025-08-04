@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $user = session('user');
         $totalBarang = DB::table('data_barang')->count();
         $totalPermintaan = DB::table('barang_keluar')->count();
-        $totalBarangKeluar = DB::table('detail_barangKeluar')->sum('jumlah');
+        $totalBarangKeluar = DB::table('detail_barang_keluar')->sum('jumlah');
         $totalBarangMasuk = DB::table('barang_masuk')->count();
 
         // Ambil filter dari query string, default = 6 bulan

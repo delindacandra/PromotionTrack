@@ -58,7 +58,7 @@
                     </div>
                     <div class="flex mb-1">
                         <span class="w-50 me-3" style="font-weight: bold">Tanggal Barang Keluar</span>
-                        <span>: {{ $barangKeluar->tanggal_barangKeluar->format('d-m-Y') }}</span>
+                        <span>: {{ $barangKeluar->tanggal_barang_keluar->format('d-m-Y') }}</span>
                     </div>
                 </div>
             @endempty

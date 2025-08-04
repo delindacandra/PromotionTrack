@@ -47,9 +47,9 @@
                         value="{{ old('keterangan', $barangMasuk->keterangan) }}" required />
                 </div>
                 <div class="mb-3">
-                    <label for="tanggal_barangMasuk" class="form-label">Tanggal Barang Masuk</label>
-                    <input type="date" class="form-control" id="tanggal_barangMasuk" name="tanggal_barangMasuk"
-                        value="{{ old('tanggal_barangMasuk', $barangMasuk->tanggal_barangMasuk) }}" required />
+                    <label for="tanggal_barang_masuk" class="form-label">Tanggal Barang Masuk</label>
+                    <input type="date" class="form-control" id="tanggal_barang_masuk" name="tanggal_barang_masuk"
+                        value="{{ old('tanggal_barang_masuk', $barangMasuk->tanggal_barang_masuk) }}" required />
                 </div>
 
                 <div class="mt-4 d-flex justify-content-start gap-2">

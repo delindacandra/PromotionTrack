@@ -18,12 +18,13 @@ class BarangController extends Controller
             'title' => 'Data Barang',
             'list' => ['Daftar Barang']
         ];
-        return view('barang.index', ['breadcrumb' => $breadcrumb]);
+        $barangs = BarangModel::whereNull('deletedby')->get();
+        return view('barang.index', ['breadcrumb' => $breadcrumb, 'barangs' => $barangs]);
     }
 
     public function list(Request $request)
     {
-        $barangs = BarangModel::with('stok', 'vendor')->orderBy('nama_barang', 'asc');
+        $barangs = BarangModel::with('stok', 'vendor')->whereNull('deletedby')->orderBy('nama_barang', 'asc');
 
         if ($request->id_barang) {
             $barangs->where('id_barang', $request->id_barang);
@@ -197,15 +198,18 @@ class BarangController extends Controller
         if (!$check) {
             return redirect('/barang')->with('error', 'Data barang tidak ditemukan');
         }
+
         try {
-            if ($check->gambar) {
+            if ($check->gambar && Storage::disk('public')->exists($check->gambar)) {
                 Storage::disk('public')->delete($check->gambar);
             }
-            StokModel::where('id_barang', $id)->delete();
-            BarangModel::destroy($id);
-            return redirect('/barang')->with('success', 'Data barang berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect('/barang')->with('error', 'Data barang gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+
+            $check->deletedby = auth()->user()->name ?? 'system';
+            $check->save();
+
+            return redirect('/barang')->with('success', 'Data barang berhasil "dihapus"');
+        } catch (\Throwable $e) {
+            return redirect('/barang')->with('error', 'Data barang gagal dihapus: ' . $e->getMessage());
         }
     }
 }

@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class DetailBarangMasukModel extends Model
 {
     use HasFactory;
-    protected $table = 'detail_barangmasuk';
-    protected $primaryKey = 'id_detailBarangMasuk';
-    protected $fillable = ['id_barangMasuk', 'id_barang',  'jumlah',  'createdby', 'editedby', 'deletedby'];
+    protected $table = 'detail_barang_masuk';
+    protected $primaryKey = 'id_detail_barang_masuk';
+    protected $fillable = ['id_barang_masuk', 'id_barang',  'jumlah',  'createdby', 'editedby', 'deletedby'];
 
     public function barang_masuk(): BelongsTo
     {
-        return $this->belongsTo(BarangMasukModel::class, 'id_barangMasuk', 'id_barangMasuk');
+        return $this->belongsTo(BarangMasukModel::class, 'id_barang_masuk', 'id_barang_masuk');
     }
 
     public function barang(): BelongsTo

@@ -61,7 +61,7 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: "barang_keluar.tanggal_barangKeluar",
+                    data: "barang_keluar.tanggal_barang_keluar",
                     className: "",
                     orderable: false,
                     searchable: false,

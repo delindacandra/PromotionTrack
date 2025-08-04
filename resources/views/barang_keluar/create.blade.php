@@ -112,10 +112,10 @@
                                     <input type="text" class="form-control" id="keterangan" name="keterangan" required />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tanggal_barangKeluar" class="form-label">Tanggal Barang
+                                    <label for="tanggal_barang_keluar" class="form-label">Tanggal Barang
                                         Keluar</label>
-                                    <input type="date" class="form-control" id="tanggal_barangKeluar"
-                                        name="tanggal_barangKeluar" required />
+                                    <input type="date" class="form-control" id="tanggal_barang_keluar"
+                                        name="tanggal_barang_keluar" required />
                                 </div>
 
                                 <div class="mt-4 d-flex justify-content-start gap-2">

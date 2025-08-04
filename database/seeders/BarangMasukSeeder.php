@@ -15,48 +15,48 @@ class BarangMasukSeeder extends Seeder
     {
         $data = [
             [
-                'id_barangMasuk' => 1,
-                'tanggal_barangMasuk' => '2024/08/28',
+                'id_barang_masuk' => 1,
+                'tanggal_barang_masuk' => '2024/08/28',
                 'keterangan' => 'Tambahan 108pcs lagi ya'
             ],
             [
-                'id_barangMasuk' => 2,
-                'tanggal_barangMasuk' => '2024/08/29',
+                'id_barang_masuk' => 2,
+                'tanggal_barang_masuk' => '2024/08/29',
                 'keterangan' => 'Tambah stok'
             ],
             [
-                'id_barangMasuk' => 3,
-                'tanggal_barangMasuk' => '2024/08/29',
+                'id_barang_masuk' => 3,
+                'tanggal_barang_masuk' => '2024/08/29',
                 'keterangan' => 'Tambah stok'
             ],
             [
-                'id_barangMasuk' => 4,
-                'tanggal_barangMasuk' => '2024/08/29',
+                'id_barang_masuk' => 4,
+                'tanggal_barang_masuk' => '2024/08/29',
                 'keterangan' => 'Tambah stok'
             ], 
             [
-                'id_barangMasuk' => 5,
-                'tanggal_barangMasuk' => '2024/08/29',
+                'id_barang_masuk' => 5,
+                'tanggal_barang_masuk' => '2024/08/29',
                 'keterangan' => 'Tambah stok'
             ],
             [
-                'id_barangMasuk' => 6,
-                'tanggal_barangMasuk' => '2024/09/12',
+                'id_barang_masuk' => 6,
+                'tanggal_barang_masuk' => '2024/09/12',
                 'keterangan' => 'Tambah stok'
             ],
             [
-                'id_barangMasuk' => 7,
-                'tanggal_barangMasuk' => '2024/10/03',
+                'id_barang_masuk' => 7,
+                'tanggal_barang_masuk' => '2024/10/03',
                 'keterangan' => 'Tambah stok'
             ],
             [
-                'id_barangMasuk' => 8,
-                'tanggal_barangMasuk' => '2024/10/11',
+                'id_barang_masuk' => 8,
+                'tanggal_barang_masuk' => '2024/10/11',
                 'keterangan' => 'Tambah stok'
             ],
             [
-                'id_barangMasuk' => 9,
-                'tanggal_barangMasuk' => '2024/11/20',
+                'id_barang_masuk' => 9,
+                'tanggal_barang_masuk' => '2024/11/20',
                 'keterangan' => 'Return dari commrel - Keperluan kegiatan mandalika 2024'
             ],
             

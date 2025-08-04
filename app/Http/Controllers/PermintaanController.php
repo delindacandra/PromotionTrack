@@ -114,7 +114,7 @@ class PermintaanController extends Controller
     {
         $request->validate([
             'items' => 'required|string',
-            'tanggal_barangKeluar' => 'required|date',
+            'tanggal_barang_keluar' => 'required|date',
             'id_permintaan' => 'required|exists:permintaan,id_permintaan',
         ]);
         $items = json_decode($request->items, true);
@@ -126,7 +126,7 @@ class PermintaanController extends Controller
 
         $permintaan = PermintaanModel::with('users.fungsi', 'users.sales_area', 'skala')->findOrFail($request->id_permintaan);
         $barangKeluar = BarangKeluarModel::create([
-            'tanggal_barangKeluar' => $request->tanggal_barangKeluar,
+            'tanggal_barang_keluar' => $request->tanggal_barang_keluar,
             'keterangan' => $permintaan->keterangan,
             'keperluan' => $permintaan->keperluan,
             'id_fungsi' => $permintaan->users->fungsi->id_fungsi,
@@ -136,7 +136,7 @@ class PermintaanController extends Controller
 
         foreach ($items as $item) {
             DetailBarangKeluarModel::create([
-                'id_barangKeluar' => $barangKeluar->id_barangKeluar,
+                'id_barang_keluar' => $barangKeluar->id_barang_keluar,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
                 'createdby' => $createdby,
@@ -225,17 +225,4 @@ class PermintaanController extends Controller
 
         return response()->json(['message' => 'Permintaan ditolak dan email telah dikirim.']);
     }
-
-
-
-
-    // public function daftarDokumen()
-    // {
-    //     $breadcrumb = (object)[
-    //         'title' => 'Dokumen Pengajuan Barang Promosi',
-    //         'list' => ['Daftar Dokumen']
-    //     ];
-    //     $permintaans = PermintaanModel::whereNotNull('dokumen')->with('users.fungsi', 'skala')->latest()->get();
-    //     return view('permintaan.dokumen', compact('permintaans', 'breadcrumb'));
-    // }
 }

@@ -76,10 +76,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="tanggal_barangKeluar" class="form-label">Tanggal Barang Keluar</label>
-                                    <input type="date" class="form-control" id="tanggal_barangKeluar"
-                                        name="tanggal_barangKeluar"
-                                        value="{{ old('tanggal_barangKeluar', $barangKeluar->tanggal_barangKeluar) }}"
+                                    <label for="tanggal_barang_keluar" class="form-label">Tanggal Barang Keluar</label>
+                                    <input type="date" class="form-control" id="tanggal_barang_keluar"
+                                        name="tanggal_barang_keluar"
+                                        value="{{ old('tanggal_barang_keluar', $barangKeluar->tanggal_barang_keluar) }}"
                                         required />
                                 </div>
                             </div>

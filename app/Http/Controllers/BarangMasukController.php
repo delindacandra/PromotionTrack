@@ -22,17 +22,17 @@ class BarangMasukController extends Controller
 
     public function list(Request $request)
     {
-        $barangMasuks = DetailBarangMasukModel::with('barang_masuk', 'barang.vendor')->orderByDesc('id_barangMasuk');
+        $barangMasuks = DetailBarangMasukModel::with('barang_masuk', 'barang.vendor')->orderByDesc('id_barang_masuk');
 
         if ($request->has('start_date') && $request->start_date) {
             $barangMasuks->whereHas('barang_masuk', function ($query) use ($request) {
-                $query->whereDate('tanggal_barangMasuk', '>=', $request->start_date);
+                $query->whereDate('tanggal_barang_masuk', '>=', $request->start_date);
             });
         }
 
         if ($request->has('end_date') && $request->end_date) {
             $barangMasuks->whereHas('barang_masuk', function ($query) use ($request) {
-                $query->whereDate('tanggal_barangMasuk', '<=', $request->end_date);
+                $query->whereDate('tanggal_barang_masuk', '<=', $request->end_date);
             });
         }
 
@@ -41,10 +41,10 @@ class BarangMasukController extends Controller
             ->addColumn('aksi', function ($barangMasuk) {
                 $btn = '';
                 if (userHasAccess('barang_masuk', 'edit')) {
-                    $btn = '<a href="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                    $btn = '<a href="' . url('/barang_masuk/' . $barangMasuk->id_barang_masuk . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
                 }
                 if (userHasAccess('barang_masuk', 'destroy')) {
-                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_masuk/' . $barangMasuk->id_barangMasuk) . '">'
+                    $btn .= '<form class="d-inline-block" method="POST" action="' . url('/barang_masuk/' . $barangMasuk->id_barang_masuk) . '">'
                         . csrf_field() . method_field('DELETE') .
                         '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">Hapus</button></form>';
                 }
@@ -67,7 +67,7 @@ class BarangMasukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal_barangMasuk' => 'required|date',
+            'tanggal_barang_masuk' => 'required|date',
             'keterangan' => 'required|string',
             'items' => 'required|string',
         ]);
@@ -80,13 +80,13 @@ class BarangMasukController extends Controller
         $createdby = "{$name}|{$info_email}";
 
         $barangMasuk = BarangMasukModel::create([
-            'tanggal_barangMasuk' => $request->tanggal_barangMasuk,
+            'tanggal_barang_masuk' => $request->tanggal_barang_masuk,
             'keterangan' => $request->keterangan,
             'createdby' => $createdby,
         ]);
         foreach ($items as $item) {
             DetailBarangMasukModel::create([
-                'id_barangMasuk' => $barangMasuk->id_barangMasuk,
+                'id_barang_masuk' => $barangMasuk->id_barang_masuk,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
                 'createdby' => $createdby,
@@ -116,7 +116,7 @@ class BarangMasukController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'tanggal_barangMasuk' => 'required|date',
+            'tanggal_barang_masuk' => 'required|date',
             'keterangan' => 'required|string',
             'items' => 'required|string',
         ]);
@@ -130,12 +130,12 @@ class BarangMasukController extends Controller
 
         $barangMasuk = BarangMasukModel::findOrFail($id);
         $barangMasuk->update([
-            'tanggal_barangMasuk' => $request->tanggal_barangMasuk,
+            'tanggal_barang_masuk' => $request->tanggal_barang_masuk,
             'keterangan' => $request->keterangan,
             'editedby' => $editedby,
         ]);
 
-        $detailBarangMasuk = DetailBarangMasukModel::where('id_barangMasuk', $id)->get();
+        $detailBarangMasuk = DetailBarangMasukModel::where('id_barang_masuk', $id)->get();
 
         foreach ($detailBarangMasuk as $oldDetail) {
             $barang = BarangModel::find($oldDetail->id_barang);
@@ -145,11 +145,11 @@ class BarangMasukController extends Controller
             }
         }
 
-        DetailBarangMasukModel::where('id_barangMasuk', $id)->delete();
+        DetailBarangMasukModel::where('id_barang_masuk', $id)->delete();
 
         foreach ($items as $item) {
             DetailBarangMasukModel::create([
-                'id_barangMasuk' => $barangMasuk->id_barangMasuk,
+                'id_barang_masuk' => $barangMasuk->id_barang_masuk,
                 'id_barang' => $item['id_barang'],
                 'jumlah' => $item['jumlah'],
                 'editedby' => $editedby,
@@ -173,7 +173,7 @@ class BarangMasukController extends Controller
         }
         try {
             // Stok akan dikurangi data pembaruan
-            $details = DetailBarangMasukModel::where('id_barangMasuk', $id)->get();
+            $details = DetailBarangMasukModel::where('id_barang_masuk', $id)->get();
 
             foreach ($details as $detail) {
                 $barang = BarangModel::find($detail->id_barang);
@@ -182,7 +182,7 @@ class BarangMasukController extends Controller
                     $barang->stok->save();
                 }
             }
-            DetailBarangMasukModel::where('id_barangMasuk', $id)->delete();
+            DetailBarangMasukModel::where('id_barang_masuk', $id)->delete();
             BarangMasukModel::destroy($id);
             return redirect('/barang_masuk')->with('success', 'Data berhasil dihapus.');
         } catch (\Illuminate\Database\QueryException $e) {
