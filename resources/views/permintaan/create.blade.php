@@ -49,7 +49,9 @@
 
                     <div class="mb-3 mt-3">
                         <label for="dokumen" class="form-label">Dokumen Pendukung</label>
-                        <input type="file" class="form-control w-100" id="dokumen" name="dokumen" required />
+                        <input type="file" class="form-control w-100" id="dokumen" name="dokumen" required
+                            oninvalid="this.setCustomValidity('Silakan unggah dokumen pendukung')"
+                            oninput="this.setCustomValidity('')" />
                     </div>
 
                     <div class="mb-3">

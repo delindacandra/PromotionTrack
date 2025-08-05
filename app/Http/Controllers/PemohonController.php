@@ -46,7 +46,7 @@ class PemohonController extends Controller
             'jumlah' => 'required|integer|min:1',
             'keperluan' => 'required',
             'keterangan' => 'nullable',
-            'dokumen' => 'nullable|file|mimes:pdf,doc|max:2048',
+            'dokumen' => 'nullable|file',
             'tanggal_diperlukan' => 'required|date',
         ]);
 
