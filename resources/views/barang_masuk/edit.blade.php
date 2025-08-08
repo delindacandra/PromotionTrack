@@ -6,7 +6,7 @@
             <div class="card-title">Form Edit Barang Masuk</div>
         </div>
         <div class="card-body">
-            <form id="form_barangMasuk" method="POST" action="{{ url('barang_masuk/' . $barangMasuk->id_barangMasuk) }}">
+            <form id="form_barangMasuk" method="POST" action="{{ url('barang_masuk/' . $barangMasuk->id_barang_masuk) }}">
                 @csrf
                 @method('PUT')
                 <div class="table-responsive">

@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <form id="form_barangKeluar" method="POST"
-                            action="{{ url('barang_keluar/' . $barangKeluar->id_barangKeluar) }}">
+                            action="{{ url('barang_keluar/' . $barangKeluar->id_barang_keluar) }}">
                             @csrf
                             @method('PUT')
 

@@ -19,20 +19,24 @@ class SlowMovingItemsChart
     {
         $dateLimit = Carbon::now()->subMonths($months);
 
-        $barang = BarangModel::withCount([
+        $barang = BarangModel::withSum([
             'detailBarangKeluar as jumlah_keluar' => function ($query) use ($dateLimit) {
                 $query->whereHas('barang_keluar', function ($q) use ($dateLimit) {
                     $q->where('tanggal_barang_keluar', '>=', $dateLimit);
                 });
             }
-        ])
-            ->orderBy('jumlah_keluar', 'asc')
+        ], 'jumlah')
+            ->whereHas('stok', function ($q) {
+                $q->where('jumlah', '>', 0); 
+            })
+            ->with('stok') 
+            ->orderByRaw('COALESCE(jumlah_keluar, 0) ASC') 
             ->take(5)
             ->get();
 
         return $this->chart->barChart()
-            ->setTitle("Barang Paling Jarang Keluar dalam $months Bulan Terakhir")
-            ->addData('Jumlah dikeluarkan', $barang->pluck('jumlah_keluar')->toArray())
+            ->setTitle("Barang Slow-Moving dalam $months Bulan Terakhir")
+            ->addData('Jumlah Dikeluarkan', $barang->pluck('jumlah_keluar')->map(fn($val) => $val ?? 0)->toArray())
             ->setXAxis($barang->pluck('nama_barang')->toArray())
             ->setHeight(280);
     }

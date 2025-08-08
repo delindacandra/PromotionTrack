@@ -100,7 +100,7 @@ class PermintaanController extends Controller
 
     public function proses($id)
     {
-        $barang = BarangModel::orderBy('nama_barang', 'asc')->get();
+        $barang = BarangModel::with('stok')->whereNull('deletedby')->orderBy('nama_barang', 'asc')->get();
         $permintaan = PermintaanModel::with('users', 'skala')->findOrFail($id);
 
         $breadcrumb = (object)[

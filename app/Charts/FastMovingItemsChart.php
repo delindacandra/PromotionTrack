@@ -19,13 +19,13 @@ class FastMovingItemsChart
     {
         $dateLimit = Carbon::now()->subMonths($months);
 
-        $barang = BarangModel::withCount([
+        $barang = BarangModel::withSum([
             'detailBarangKeluar as jumlah_keluar' => function ($query) use ($dateLimit) {
                 $query->whereHas('barang_keluar', function ($q) use ($dateLimit) {
                     $q->where('tanggal_barang_keluar', '>=', $dateLimit);
                 });
             }
-        ])
+        ], 'jumlah')
             ->orderBy('jumlah_keluar', 'desc')
             ->take(5)
             ->get();
